@@ -16,7 +16,6 @@ class RegisterUser {
       'username': username,
       'email': email,
       'password': password,
-      'avatar': avatar ?? '',
     };
   }
 }

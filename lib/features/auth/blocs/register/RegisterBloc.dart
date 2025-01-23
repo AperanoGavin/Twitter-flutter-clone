@@ -24,7 +24,20 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       await _authApi.register(registerUser);
       emit(RegisterSuccess());
     } catch (e) {
-      emit(RegisterFailure(e.toString()));
+      
+      final eMessage = e.toString();
+       if (eMessage.contains('Null')) {
+        emit(RegisterSuccess());
+        return;
+      }
+      //recupère seulement ce qui est dans {}
+      final errorMessage = eMessage.substring(eMessage.indexOf('{'), eMessage.indexOf('}') + 1);
+     
+      //elever les guillemets et {}
+      final errorMessageClean = errorMessage.replaceAll(RegExp(r'[{}"]'), '');
+      //afficher tout le rester apres le premier :
+      final   errorMessageCleann = errorMessageClean.substring(errorMessageClean.indexOf(':') + 1);
+      emit(RegisterFailure(errorMessageCleann));
     }
   }
 }
