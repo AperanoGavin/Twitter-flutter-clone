@@ -7,9 +7,6 @@ import '../blocs/Register/RegisterBloc.dart';
 import '../ui/RegisterScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-
-
-
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -18,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: BlocProvider(
         create: (context) => LoginBloc(),
         child: BlocConsumer<LoginBloc, LoginState>(
@@ -45,57 +42,53 @@ class LoginScreen extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 60),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                       AnimatedTextKit(
-                        animatedTexts: [
-                          TypewriterAnimatedText(
-                            'Welcome To ESGIX',
-                            textStyle: const TextStyle(
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            speed: const Duration(milliseconds: 200),
+            return Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 40), // Ajustez cette valeur pour déplacer le texte plus haut
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              TypewriterAnimatedText(
+                                'Welcome To ESGIX',
+                                textStyle: const TextStyle(
+                                  fontSize: 32.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                speed: const Duration(milliseconds: 200),
+                              ),
+                            ],
+                            totalRepeatCount: 4,
+                            pause: const Duration(milliseconds: 1000),
+                            displayFullTextOnTap: true,
+                            stopPauseOnTap: true,
                           ),
-                        ],
-                        totalRepeatCount: 4,
-                        pause: const Duration(milliseconds: 1000),
-                        displayFullTextOnTap: true,
-                        stopPauseOnTap: true,
-                      ),
-                      /* Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
                         ),
-                        textAlign: TextAlign.center,
-                      ), */
-                      SizedBox(height: 16),
-                      Text(
-                        'Sign in to continue',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
+                        SizedBox(height: 16),
+                        Text(
+                          'Sign in to continue',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 40),
-                      _buildEmailField(),
-                      SizedBox(height: 16),
-                      _buildPasswordField(),
-                      SizedBox(height: 24),
-                      _buildLoginButton(context),
-                      SizedBox(height: 20),
-                      _buildAlternativeLogin(context),
-                    ],
+                        SizedBox(height: 40),
+                        _buildEmailField(),
+                        SizedBox(height: 16),
+                        _buildPasswordField(),
+                        SizedBox(height: 24),
+                        _buildLoginButton(context),
+                        SizedBox(height: 20),
+                        _buildAlternativeLogin(context),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -111,7 +104,7 @@ class LoginScreen extends StatelessWidget {
       controller: emailController,
       decoration: InputDecoration(
         labelText: 'Email',
-        prefixIcon: Icon(Icons.email_outlined, color: Colors.black54),
+        prefixIcon: Icon(Icons.email_outlined, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -131,7 +124,7 @@ class LoginScreen extends StatelessWidget {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
-        prefixIcon: Icon(Icons.lock_outline, color: Colors.black54),
+        prefixIcon: Icon(Icons.lock_outline, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -156,8 +149,8 @@ class LoginScreen extends StatelessWidget {
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         padding: EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -170,26 +163,25 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-Widget _buildAlternativeLogin(BuildContext context) {
+  Widget _buildAlternativeLogin(BuildContext context) {
     return Column(
       children: [
-      GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => BlocProvider(
-              create: (context) => RegisterBloc(),
-              child: RegisterScreen(),
-            )),
-          );
-        },
-        child: Text(
-          'Sign up',
-          style: TextStyle(color: Colors.grey),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BlocProvider(
+                create: (context) => RegisterBloc(),
+                child: RegisterScreen(),
+              )),
+            );
+          },
+          child: Text(
+            'Sign up',
+            style: TextStyle(color: Colors.grey),
+          ),
         ),
-      ),
       ],
     );
   }
-
 }
