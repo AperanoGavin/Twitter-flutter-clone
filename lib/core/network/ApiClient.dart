@@ -3,8 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
-  static const String _baseUrl = "https://api.postman.com/collections/30856059-ffedacd3-7733-4529-ba35-5c6308fd31ec?access_key=PMAT-01J976BQ3DB6GS3962V7CCKA9W";
-  static const String _apiKey = "PMAT-01J976BQ3DB6GS3962V7CCKA9W";
+  static const String _baseUrl = "https://esgix.tech";
+  static const String _apiKey = '5%ziCy)906"<';
+  static const String _accessKey = "PMAT-01J976BQ3DB6GS3962V7CCKA9W";
+
 
   static final ApiClient _instance = ApiClient._internal();
   factory ApiClient() => _instance;
@@ -53,6 +55,7 @@ class ApiClient {
     return {
       'Authorization': token != null ? 'Bearer $token' : '',
       'x-api-key': _apiKey,
+      'access_key': _accessKey,
       'Content-Type': 'application/json',
     };
   }

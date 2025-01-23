@@ -1,34 +1,55 @@
-class User{
-    final String username;
-    final String email;
-    final String password;
-    final Uri? avatar;
+class User {
+  final String id;
+  final String username;
+  final String email;
+  final String? avatar;
+  final String? description;
+  final String created;
+  final String updated;
+  final bool emailVisibility;
+  final bool verified;
+  final String apiKey;
 
-    User({
-      required this.username,
-      required this.email,
-      required this.password,
-      this.avatar
+  User({
+    required this.id,
+    required this.username,
+    required this.email,
+    this.avatar,
+    this.description,
+    required this.created,
+    required this.updated,
+    required this.emailVisibility,
+    required this.verified,
+    required this.apiKey
+  });
 
-    }) : assert(email.isNotEmpty, 'Email cannot be empty'),
-         assert(username.isNotEmpty , 'Username cannot be empty');
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as String,
+      username: json['username'] as String,
+      email: json['email'] as String,
+      avatar: json['avatar'] as String?,
+      description: json['description'] as String?,
+      created: json['created'] as String,
+      updated: json['updated'] as String,
+      emailVisibility: json['emailVisibility'] as bool,
+      verified: json['verified'] as bool,
+      apiKey: json['api_key'] as String
+    );
+  }
 
-    factory User.fromJson(Map<String, dynamic> json) {
-      return User(
-        username: json['username'] as String,
-        email: json['email'] as String , 
-        password : json['password'] as String,
-        avatar: json['avatar'] != null ? Uri.tryParse(json['avatar'] as String) : null,
-      );
-    }
-
-    Map<String, dynamic> toJson(){
-      return {
-        'username': username, 
-        'email': email,
-        'password': password,
-        'avatar': avatar?.toString(),
-      };
-    }
-
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'avatar': avatar,
+      'description': description,
+      'created': created,
+      'updated': updated,
+      'emailVisibility': emailVisibility,
+      'verified': verified,
+      'api_key': apiKey
+    };
+  }
 }

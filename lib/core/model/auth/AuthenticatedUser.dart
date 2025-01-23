@@ -12,7 +12,7 @@ class AuthenticatedUser {
 
   factory AuthenticatedUser.fromJson(Map<String , dynamic> json){
     return AuthenticatedUser(
-      user: User.fromJson(json['user']),
+      user: User.fromJson(json['record']),
       token: json['token'] as String,
     );
   }
