@@ -38,8 +38,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             if (state is RegisterSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('User registered successfully!'),
-                  backgroundColor: Colors.green,
+                  backgroundColor: Colors.black,
+                  content: Container(
+                    padding: EdgeInsets.all(6),
+                    height: context.size!.height * 0.1,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('User registered successfully!'),
+
+                      ],
+                    ),
+
+                  )
+                  
                 ),
               );
             }
