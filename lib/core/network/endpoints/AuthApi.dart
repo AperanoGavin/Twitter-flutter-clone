@@ -3,29 +3,32 @@ import 'dart:convert';
 import '../ApiClient.dart';
 import '../../model/user.dart';
 import '../../model/auth/AuthenticatedUser.dart';
+import '../../model/auth/register/RegisterUser.dart';
 
 class AuthApi {
   final ApiClient _apiClient = ApiClient();
 
-  Future<void> register(User user) async {
+Future<AuthenticatedUser> register(RegisterUser registerUser) async {
   try {
-    final response = await _apiClient.post('auth/register', user.toJson());
+    final registrationData = {
+      'username': registerUser.username,
+      'email': registerUser.email,
+      'password': registerUser.password, 
+      'avatar': registerUser.avatar?.toString() ?? ''
+    };
 
-    if (response.statusCode == 201) {
-      print('Utilisateur créé avec succès');
-    } else if (response.statusCode == 400) {
-      throw Exception('Erreur lors de la création de l\'utilisateur: ${response.body}');
+    final response = await _apiClient.post('auth/register', registrationData);
 
-      //print('Erreur lors de la création de l\'utilisateur: ${response.body}');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final responseBody = json.decode(response.body);
+      final user = AuthenticatedUser.fromJson(responseBody);
+      print('AuthenticatedUser: $user');
+      return AuthenticatedUser.fromJson(responseBody);
     } else {
-      throw Exception('Erreur inconnue: ${response.statusCode}');
-
-      //print('Erreur inconnue: ${response.statusCode}');
+      throw Exception('Registration failed: ${response.body}');
     }
   } catch (e) {
-    throw Exception('Erreur de connexion ou de traitement: $e');
-
-    //print('Erreur de connexion ou de traitement: $e');
+    throw Exception('Error during registration: $e');
   }
 }
 
