@@ -14,7 +14,8 @@ Future<AuthenticatedUser> register(RegisterUser registerUser) async {
       'username': registerUser.username,
       'email': registerUser.email,
       'password': registerUser.password, 
-      'avatar': registerUser.avatar?.toString() ?? ''
+      'avatar': registerUser.avatar ?? "",
+      
     };
 
     final response = await _apiClient.post('auth/register', registrationData);
@@ -31,6 +32,7 @@ Future<AuthenticatedUser> register(RegisterUser registerUser) async {
     throw Exception('Error during registration: $e');
   }
 }
+
 
 
   Future<AuthenticatedUser> login(String email, String password) async {

@@ -10,6 +10,7 @@ class LoginSuccess extends LoginState {
   LoginSuccess(this.token);
 }
 
+
 class LoginFailure extends LoginState {
   final String errorMessage;
 
