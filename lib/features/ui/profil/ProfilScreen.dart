@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../features/blocs/profil/ProfilBloc.dart';
 import '../widgets/NavbarWidget.dart';
-import '../../../features/blocs/navbar/NavbarBloc.dart';
 import '../../../features/blocs/profil/ProfilEvent.dart';
 import '../../../features/blocs/profil/ProfilState.dart';
 import '../../../repositories/userRepository.dart';
@@ -80,10 +79,7 @@ class ProfilScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: BlocProvider(
-        create: (context) => NavBloc(),
-        child: NavbarWidget(),
-      ),
+      bottomNavigationBar: NavbarWidget(),
     );
   }
 

@@ -8,7 +8,6 @@ import '../../blocs/auth//Register/RegisterBloc.dart';
 import 'RegisterScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import '../widgets/NavbarWidget.dart';
-import '../../blocs/navbar/NavbarBloc.dart';
 import '../profil/ProfilScreen.dart';
 import '../../blocs/profil/ProfilBloc.dart';
 import 'package:esgix/repositories/userRepository.dart';
