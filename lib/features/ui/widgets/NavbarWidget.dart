@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/navbar/NavbarBloc.dart';
-import '../../blocs/navbar/NavbarState.dart';
-import '../../blocs/navbar/NavbarEvent.dart';
+
 
 class NavbarWidget extends StatelessWidget {
   const NavbarWidget({Key? key}) : super(key: key);
@@ -45,7 +43,7 @@ class NavbarWidget extends StatelessWidget {
         ),
       ],
       onTap: (index) {
-        
+
          if (index == currentIndex) return;
 
         switch (index) {
