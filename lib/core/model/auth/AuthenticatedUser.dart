@@ -1,4 +1,4 @@
-import 'package:esgix/core/model/user.dart';
+import 'package:esgix/core/model/user/user.dart';
 
 class AuthenticatedUser {
   final User user;

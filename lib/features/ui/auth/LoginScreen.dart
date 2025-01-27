@@ -1,23 +1,35 @@
+import 'package:esgix/features/blocs/profil/ProfilEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/login/LoginEvent.dart';
-import '../blocs/login/LoginBloc.dart';
-import '../blocs/login/LoginState.dart';
-import '../blocs/Register/RegisterBloc.dart';
-import '../ui/RegisterScreen.dart';
+import '../../blocs/auth/login/LoginEvent.dart';
+import '../../blocs/auth/login/LoginBloc.dart';
+import '../../blocs/auth/login/LoginState.dart';
+import '../../blocs/auth//Register/RegisterBloc.dart';
+import 'RegisterScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import '../widgets/NavbarWidget.dart';
+import '../../blocs/navbar/NavbarBloc.dart';
+import '../profil/ProfilScreen.dart';
+import '../../blocs/profil/ProfilBloc.dart';
+import 'package:esgix/repositories/userRepository.dart';
+import 'package:esgix/core/network/endpoints/UserApi.dart';
+import 'package:esgix/services/AuthService.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final UserRepository userRepository = UserRepository(userApi: UserApi());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocProvider(
-        create: (context) => LoginBloc(),
+        create: (context) => LoginBloc(
+          userRepository: context.read<UserRepository>(), // Utiliser UserRepository
+          authService: context.read<AuthService>(), // Utiliser AuthService
+        ),
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
@@ -41,6 +53,19 @@ class LoginScreen extends StatelessWidget {
 
                   )
                   
+                ),
+              );
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => ProfilBloc(
+                      userRepository: context.read<UserRepository>(),
+                      authService: context.read<AuthService>(),
+                    )..add(LoadProfil()),
+                    child: ProfilScreen(),
+                  ),
                 ),
               );
             }
@@ -120,6 +145,12 @@ class LoginScreen extends StatelessWidget {
                         _buildLoginButton(context),
                         SizedBox(height: 20),
                         _buildAlternativeLogin(context),
+                        SizedBox(height: 10),
+                        //BlocProvider(
+                        //  create: (context) => NavBloc(),
+                        //  child: NavbarWidget(context), // Remplace par ton widget principal
+                        //),
+
                       ],
                     ),
                   ),

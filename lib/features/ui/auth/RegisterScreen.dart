@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/Register/RegisterEvent.dart';
-import '../blocs/Register/RegisterBloc.dart';
-import '../blocs/Register/RegisterState.dart';
+import '../../blocs/auth/Register/RegisterEvent.dart';
+import '../../blocs/auth/Register/RegisterBloc.dart';
+import '../../blocs/auth/Register/RegisterState.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
