@@ -20,12 +20,12 @@ class PostApi {
 
   Future<List<Post>> get() async {
     try {
-      final response = await _apiClient.get('/posts');
+      final response = await _apiClient.get('posts');
       final Map<String, dynamic> jsonResponse = json.decode(response.body);
       final List<dynamic> jsonList = jsonResponse['data'];
       return jsonList.map((json) => Post.fromJson(json)).toList();
     } catch (e) {
-      throw Exception('Failed to load posts');
+      throw Exception('Api error Failed to load posts');
     }
   }
 
