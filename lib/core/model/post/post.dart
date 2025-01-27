@@ -36,6 +36,7 @@ class Post {
   final String id;
   final int likesCount;
   final DateTime updatedAt;
+  final bool isLiked;
 
   Post({
     required this.content,
@@ -47,7 +48,36 @@ class Post {
     required this.id,
     this.likesCount = 0,
     required this.updatedAt,
+     this.isLiked = false, 
   });
+
+  Post copyWith({
+    String? id,
+    String? content,
+    String? imageUrl,
+    String? parent,
+    int? likesCount,
+    int? commentsCount,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Author? author,
+    bool? isLiked, 
+
+  }) {
+    return Post(
+      id: id ?? this.id,
+      content: content ?? this.content,
+      imageUrl: imageUrl ?? this.imageUrl,
+      parent: parent ?? this.parent,
+      likesCount: likesCount ?? this.likesCount,
+      commentsCount: commentsCount ?? this.commentsCount,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      author: author ?? this.author,
+      isLiked: isLiked ?? this.isLiked, 
+
+    );
+  }
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
@@ -60,8 +90,11 @@ class Post {
       id: json['id'],
       likesCount: json['likesCount'] ?? 0,
       updatedAt: DateTime.parse(json['updatedAt']),
+      isLiked: json['isLiked'] ?? false, 
+
     );
   }
+
 
  /*  Map<String, dynamic> toJson() {
     return {

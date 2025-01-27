@@ -13,10 +13,6 @@ class PostApi {
     });
   }
 
-  /* Future<String> fetchPosts() async {
-      final response = await _apiClient.get('posts');
-      return response.body;
-    } */
 
   Future<List<Post>> get() async {
     try {
@@ -30,7 +26,7 @@ class PostApi {
   }
 
   Future<void> toggleLike(String postId) async {
-    await _apiClient.post('posts/like/$postId', {});
+    await _apiClient.post('likes/$postId', {});
   }
 
   

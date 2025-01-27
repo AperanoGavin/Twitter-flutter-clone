@@ -69,7 +69,10 @@ class PostItem extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.favorite_border),
+                  icon: Icon(
+                    post.isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: post.isLiked ? Colors.red : Colors.white,
+                  ),
                   onPressed: () {
                     context.read<PostBloc>().add(LikePost(postId: post.id));
                   },
