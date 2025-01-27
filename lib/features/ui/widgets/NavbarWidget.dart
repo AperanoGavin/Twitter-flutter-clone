@@ -5,23 +5,62 @@ import '../../blocs/navbar/NavbarState.dart';
 import '../../blocs/navbar/NavbarEvent.dart';
 
 class NavbarWidget extends StatelessWidget {
-  NavbarWidget(BuildContext context);
+  const NavbarWidget({Key? key}) : super(key: key);
+
+  int _getCurrentIndex(BuildContext context) {
+    final String currentRoute = ModalRoute.of(context)?.settings.name ?? '';
+    switch (currentRoute) {
+      case '/home':
+        return 0;
+      case '/search':
+        return 1;
+      case '/profil':
+        return 2;
+      default:
+        return 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavBloc, NavState>(
-      builder: (context, state) {
-        return BottomNavigationBar(
-          currentIndex: state.currentIndex,
-          onTap: (index) {
-            context.read<NavBloc>().add(NavItemChanged(index));
-          },
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-        );
+      final currentIndex = _getCurrentIndex(context);
+
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      backgroundColor: Colors.black,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.grey,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'Search',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profil',
+        ),
+      ],
+      onTap: (index) {
+        
+         if (index == currentIndex) return;
+
+        switch (index) {
+          case 0:
+            Navigator.pushReplacementNamed(context, '/home');
+            break;
+          case 1:
+            Navigator.pushReplacementNamed(context, '/search');
+            break;
+          case 2:
+            // Déjà sur la page profil
+             Navigator.pushReplacementNamed(context, '/profil');
+
+            break;
+        }
       },
     );
   }

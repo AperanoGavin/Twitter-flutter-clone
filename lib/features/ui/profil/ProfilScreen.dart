@@ -66,10 +66,10 @@ class ProfilScreen extends StatelessWidget {
                       _buildDescriptionField(),
                       SizedBox(height: 30),
                       _buildUpdateButton(context),
-                      /* BlocProvider(
+                       /* BlocProvider(
                         create: (context) => NavBloc(),
-                        child: NavbarWidget(context),
-                      ), */
+                        child: NavbarWidget(),
+                      ),  */
                     ],
                   ),
                 ),
@@ -79,6 +79,10 @@ class ProfilScreen extends StatelessWidget {
             return Center(child: Text('Something went wrong!'));
           },
         ),
+      ),
+      bottomNavigationBar: BlocProvider(
+        create: (context) => NavBloc(),
+        child: NavbarWidget(),
       ),
     );
   }

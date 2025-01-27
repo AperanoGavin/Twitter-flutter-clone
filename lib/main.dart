@@ -47,13 +47,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: BlocProvider(
-        create: (context) => LoginBloc(
-          userRepository: context.read<UserRepository>(),
-          authService: context.read<AuthService>(),
+      initialRoute: '/login',
+      routes: {
+         '/login': (context) => BlocProvider(
+          create: (context) => LoginBloc(
+            userRepository: context.read<UserRepository>(),
+            authService: context.read<AuthService>(),
+          ),
+          child: LoginScreen(),
+        ), 
+        '/profil': (context) => BlocProvider(
+          create: (context) => ProfilBloc(
+            userRepository: context.read<UserRepository>(),
+            authService: context.read<AuthService>(),
+          ),
+          child: ProfilScreen(),
         ),
-        child: LoginScreen(),
-      ),
+        //'/home': (context) => HomeScreen(), // 
+       // '/search': (context) => SearchScreen(), // 
+      },
     );
   }
 }
