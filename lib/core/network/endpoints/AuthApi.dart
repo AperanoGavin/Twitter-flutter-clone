@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import '../ApiClient.dart';
-import '../../model/user.dart';
+import '../../model/user/user.dart';
 import '../../model/auth/AuthenticatedUser.dart';
 import '../../model/auth/register/RegisterUser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AuthApi {
   final ApiClient _apiClient = ApiClient();
@@ -42,6 +44,11 @@ Future<AuthenticatedUser> register(RegisterUser registerUser) async {
     });
 
     final data = jsonDecode(response.body);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', data['token']);
+    prefs.setString('user', jsonEncode(data['record']));
+    prefs.setString('id', data['record']['id'].toString());
+
     return AuthenticatedUser.fromJson(data);
   }
 }
