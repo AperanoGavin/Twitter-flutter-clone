@@ -1,4 +1,5 @@
 
+import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
@@ -13,8 +14,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
+        backgroundColor: Colors.black,
       ),
       body: BlocProvider(
         create: (context) => PostBloc(
@@ -44,6 +47,7 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
+      bottomNavigationBar: NavbarWidget(),
     );
   }
 }
