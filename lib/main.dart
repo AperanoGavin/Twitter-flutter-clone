@@ -1,4 +1,7 @@
+import 'package:esgix/core/model/post/post.dart';
 import 'package:esgix/core/network/endpoints/UserApi.dart';
+import 'package:esgix/features/blocs/post/PostBloc.dart';
+import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/repositories/userRepository.dart';
 import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +14,9 @@ import 'features/ui/profil/ProfilScreen.dart';
 import 'features/ui/auth/RegisterScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:provider/provider.dart';
-
+import 'features/ui/home/HomeScreen.dart';
+import 'repositories/postRepository.dart';
+import 'core/network/endpoints/posts/PostApi.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,6 +30,9 @@ void main() {
         Provider<UserApi>(
           create: (_) => UserApi(),
         ),
+        Provider<PostApi>(
+          create: (_) => PostApi(),
+        ),
         Provider<UserRepository>(
           create: (_) => UserRepository(
             userApi: _.read<UserApi>(),
@@ -32,6 +40,11 @@ void main() {
         ),
         Provider<AuthService>(
           create: (_) => AuthService(),
+        ),
+        Provider<PostRepository>(
+          create: (_) => PostRepository(
+             postApi: _.read<PostApi>(),
+          )
         ),
       ],
       child: MyApp(),
@@ -63,7 +76,12 @@ class MyApp extends StatelessWidget {
           ),
           child: ProfilScreen(),
         ),
-        //'/home': (context) => HomeScreen(), // 
+        '/home': (context) => BlocProvider(
+          create: (context) => PostBloc(
+            postRepository: context.read<PostRepository>(),
+          )..add(LoadPosts(page: 1)),
+          child: HomeScreen(),
+        ), 
        // '/search': (context) => SearchScreen(), // 
       },
     );

@@ -15,7 +15,7 @@ class NavbarWidget extends StatelessWidget {
       case '/profil':
         return 2;
       default:
-        return 0;
+        return 2;
     }
   }
 
@@ -54,7 +54,6 @@ class NavbarWidget extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/search');
             break;
           case 2:
-            // Déjà sur la page profil
              Navigator.pushReplacementNamed(context, '/profil');
 
             break;
