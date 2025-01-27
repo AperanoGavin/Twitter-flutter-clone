@@ -67,11 +67,13 @@ class User {
 }
 
 class UserUpdate {
+  final String id;
   final String username;
   final String? avatar;
   final String? description;
 
   UserUpdate({
+    required this.id,
     required this.username,
     this.avatar,
     this.description,
@@ -79,6 +81,7 @@ class UserUpdate {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'username': username,
       'avatar': avatar,
       'description': description,
