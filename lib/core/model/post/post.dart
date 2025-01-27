@@ -63,7 +63,7 @@ class Post {
     );
   }
 
-  Map<String, dynamic> toJson() {
+ /*  Map<String, dynamic> toJson() {
     return {
       'content': content,
       'parent': parent,
@@ -75,5 +75,5 @@ class Post {
       'likesCount': likesCount,
       'updatedAt': updatedAt.toIso8601String(),
     };
-  }
+  } */
 }
