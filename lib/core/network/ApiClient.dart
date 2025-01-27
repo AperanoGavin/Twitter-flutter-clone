@@ -14,7 +14,7 @@ class ApiClient {
 
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('auth_token');
+    return prefs.getString('token');
   }
 
   Future<http.Response> get(String endpoint) async {

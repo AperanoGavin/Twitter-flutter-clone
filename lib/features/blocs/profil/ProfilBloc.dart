@@ -5,11 +5,13 @@ import '../../../core/model/user/user.dart';
 import 'ProfilEvent.dart';
 import 'ProfilState.dart';
 import '../../../services/AuthService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   final UserRepository userRepository;
   final AuthService authService;
-
+  
 
   ProfilBloc({
       required this.userRepository ,
@@ -34,17 +36,33 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
 
   Future<void> _onUpdateProfil(UpdateProfil event, Emitter<ProfilState> emit) async {
     try {
+      emit(ProfilLoading());
+
+      final userId = await authService.getUserId();
+        if (userId == null) {
+        throw Exception('User ID not found in cache');
+      }
       final updatedUser = await userRepository.updateProfile(
         UserUpdate(
+          id: userId ,
           username: event.username,
           description: event.description,
           avatar: event.avatar,
         ),
       );
       
-    emit(ProfilLoading());
+    final user = await userRepository.getUserById(userId);
+    emit(ProfilLoaded(user));
+
+    //emit(ProfilLoading());
     } catch (e) {
       emit(ProfilError(e.toString()));
+      // Recharger les données après une erreur
+      final userId = await authService.getUserId();
+      if (userId != null) {
+        final user = await userRepository.getUserById(userId);
+        emit(ProfilLoaded(user));
+      }
     }
   }
 }
