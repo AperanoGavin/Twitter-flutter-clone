@@ -17,4 +17,14 @@ class PostRepository {
     }
   }
 
+  //likePost
+
+  Future<void> likePost(String postId) async {
+    try {
+      await _postApi.toggleLike(postId);
+    } catch (e) {
+      throw Exception('Failed to like post: $e');
+    }
+  }
+
 }

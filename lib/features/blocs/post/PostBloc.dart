@@ -11,8 +11,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   PostBloc({required this.postRepository}) : super(PostInitial()) {
     on<LoadPosts>(_onLoadPosts);
-   /*  on<LikePost>(_onLikePost);
-    on<CreatePost>(_onCreatePost);
+    on<LikePost>(_onLikePost);
+    /*on<CreatePost>(_onCreatePost);
     on<DeletePost>(_onDeletePost); */
   }
 
@@ -26,14 +26,16 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  /* Future<void> _onLikePost(LikePost event, Emitter<PostState> emit) async {
+   Future<void> _onLikePost(LikePost event, Emitter<PostState> emit) async {
     try {
       await postRepository.likePost(event.postId);
       final currentState = state as PostLoaded;
       final updatedPosts = currentState.posts.map((post) {
         if (post.id == event.postId) {
-          return post.copyWith(likesCount: post.likesCount + 1);
-        }
+            final isLiked = !post.isLiked;
+            final likesCount = isLiked ? post.likesCount + 1 : post.likesCount - 1;
+          return post.copyWith(likesCount: likesCount, isLiked: isLiked);
+      }
         return post;
       }).toList();
       emit(PostLoaded(updatedPosts));
@@ -41,7 +43,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostError(e.toString()));
     }
   }
-
+ /*
   Future<void> _onCreatePost(CreatePost event, Emitter<PostState> emit) async {
     try {
       await postRepository.createPost(
