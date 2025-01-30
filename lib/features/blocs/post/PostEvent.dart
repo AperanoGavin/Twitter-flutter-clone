@@ -1,3 +1,5 @@
+import 'package:esgix/core/model/post/post.dart';
+
 abstract class PostEvent {}
 
 class LoadPosts extends PostEvent {
@@ -13,15 +15,17 @@ class LikePost extends PostEvent {
 }
 
 class CreatePost extends PostEvent {
-  final String content;
-  final String? imageUrl;
-  final String? parentId;
+  final PostCreate postCreate;
 
-  CreatePost({
-    required this.content,
-    this.imageUrl,
-    this.parentId,
-  });
+  CreatePost({required this.postCreate});
+}
+
+class UpdatePost extends PostEvent {
+  final String postId;
+  final PostCreate postCreate;
+
+  UpdatePost({required this.postId, required this.postCreate}); 
+
 }
 
 class DeletePost extends PostEvent {

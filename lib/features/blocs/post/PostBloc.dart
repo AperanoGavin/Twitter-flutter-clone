@@ -12,8 +12,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc({required this.postRepository}) : super(PostInitial()) {
     on<LoadPosts>(_onLoadPosts);
     on<LikePost>(_onLikePost);
-    /*on<CreatePost>(_onCreatePost);
-    on<DeletePost>(_onDeletePost); */
+    on<CreatePost>(_onCreatePost);
+    on<UpdatePost>(_onUpdatePost);
+    on<DeletePost>(_onDeletePost); 
   }
 
   Future<void> _onLoadPosts(LoadPosts event, Emitter<PostState> emit) async {
@@ -43,15 +44,21 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostError(e.toString()));
     }
   }
- /*
+
   Future<void> _onCreatePost(CreatePost event, Emitter<PostState> emit) async {
     try {
-      await postRepository.createPost(
-        content: event.content,
-        imageUrl: event.imageUrl,
-        parentId: event.parentId,
-      );
-      add(LoadPosts(page: 1)); // Recharger les posts après création
+      await postRepository.createPost(event.postCreate);
+      add(LoadPosts(page: 1)); 
+    } catch (e) {
+      emit(PostError(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdatePost(UpdatePost event, Emitter<PostState> emit) async {
+    try {
+      
+      await postRepository.updatePost(event.postCreate , event.postId);
+      add(LoadPosts(page: 1)); // Reload posts after update
     } catch (e) {
       emit(PostError(e.toString()));
     }
@@ -60,9 +67,10 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Future<void> _onDeletePost(DeletePost event, Emitter<PostState> emit) async {
     try {
       await postRepository.deletePost(event.postId);
-      add(LoadPosts(page: 1)); // Recharger les posts après suppression
+      add(LoadPosts(page: 1)); 
     } catch (e) {
       emit(PostError(e.toString()));
     }
-  } */
+  }
+
 }
