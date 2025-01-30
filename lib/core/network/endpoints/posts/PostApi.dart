@@ -5,12 +5,24 @@ import '../../../model/post/post.dart';
 class PostApi {
   final ApiClient _apiClient = ApiClient();
 
-  Future<void> createPost(String content, String? imageUrl, String? parentId) async {
+  Future<void> createPost(PostCreate postCreate) async {
     await _apiClient.post('posts', {
-      'content': content,
-      'imageUrl': imageUrl,
-      'parent': parentId,
+      'content': postCreate.content,
+      'imageUrl': postCreate.imageUrl,
+      'parent': postCreate.parent,
     });
+  }
+
+  Future<void> updatePost(PostCreate postCreate, String postId) async {
+    await _apiClient.put('posts/$postId', {
+      'content': postCreate.content,
+      'imageUrl': postCreate.imageUrl,
+      'parent': postCreate.parent,
+    });
+  }
+
+  Future<void> deletePost(String postId) async {
+    await _apiClient.delete('posts/$postId');
   }
 
 
