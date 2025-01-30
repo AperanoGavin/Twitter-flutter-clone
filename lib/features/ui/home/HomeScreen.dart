@@ -1,14 +1,11 @@
-
-import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
+import 'package:esgix/features/blocs/post/PostState.dart';
+import 'package:esgix/features/ui/widgets/PostItemWidget.dart';
+import 'package:esgix/repositories/postRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
-import 'package:esgix/features/blocs/post/PostState.dart';
-import 'package:esgix/repositories/postRepository.dart';
-import 'package:provider/provider.dart';
-import 'package:esgix/features/ui/widgets/PostItemWidget.dart';
-
+import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -45,6 +42,20 @@ class HomeScreen extends StatelessWidget {
 
             return Center(child: Text('No posts available'));
           },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF1DA1F2), // Twitter blue color
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, '/managePost');
+          if (result == true) {
+            // Trigger an API call to refresh the data
+            context.read<PostBloc>().add(LoadPosts(page: 1));
+          }
+        },
+        child: Icon(Icons.add),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50), // Ensure circular shape
         ),
       ),
       bottomNavigationBar: NavbarWidget(),
