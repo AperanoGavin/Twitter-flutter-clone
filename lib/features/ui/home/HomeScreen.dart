@@ -12,10 +12,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: Colors.black,
-      ),
       body: BlocProvider(
         create: (context) => PostBloc(
           postRepository: context.read<PostRepository>(),
@@ -27,20 +23,27 @@ class HomeScreen extends StatelessWidget {
             }
 
             if (state is PostLoaded) {
-              return RefreshIndicator(
-                strokeWidth: 100, //
-                color: Colors.black,
-                backgroundColor: Colors.white,
-                onRefresh: () async {
-                  context.read<PostBloc>().add(LoadPosts(page: 1));
-                },
-                child: ListView.builder(
-                  itemCount: state.posts.length,
-                  itemBuilder: (context, index) {
-                    final post = state.posts[index];
-                    return PostItem(post: post);
-                  },
-                ),
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    title: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/X_logo_2023_%28white%29.png/480px-X_logo_2023_%28white%29.png',
+                        height: 40, // Adjust the height as needed
+                    ),
+                    backgroundColor: Colors.black,
+                    floating: true,
+                    snap: true,
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final post = state.posts[index];
+                        return PostItem(post: post);
+                      },
+                      childCount: state.posts.length,
+                    ),
+                  ),
+                ],
               );
             }
 
