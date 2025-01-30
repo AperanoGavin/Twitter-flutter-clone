@@ -2,6 +2,7 @@ import 'package:esgix/core/model/post/post.dart';
 import 'package:esgix/core/network/endpoints/UserApi.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
+import 'package:esgix/features/ui/post/ManagePostScreen.dart';
 import 'package:esgix/repositories/userRepository.dart';
 import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,12 @@ class MyApp extends StatelessWidget {
           )..add(LoadPosts(page: 1)),
           child: HomeScreen(),
         ), 
+        '/managePost': (context) => BlocProvider(
+          create: (context) => PostBloc(
+            postRepository: context.read<PostRepository>(),
+          ),
+          child: ManagePostScreen(),
+        ),
        // '/search': (context) => SearchScreen(), // 
       },
     );
