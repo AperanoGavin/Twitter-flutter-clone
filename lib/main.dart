@@ -83,12 +83,15 @@ class MyApp extends StatelessWidget {
           )..add(LoadPosts(page: 1)),
           child: HomeScreen(),
         ), 
-        '/managePost': (context) => BlocProvider(
-          create: (context) => PostBloc(
-            postRepository: context.read<PostRepository>(),
-          ),
-          child: ManagePostScreen(),
-        ),
+        '/managePost': (context) {
+          final post = ModalRoute.of(context)!.settings.arguments as Post?;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            ),
+            child: ManagePostScreen(post: post),
+          );
+        },
        // '/search': (context) => SearchScreen(), // 
       },
     );
