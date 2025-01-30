@@ -17,3 +17,10 @@ class PostError extends PostState {
 
   PostError(this.message);
 }
+
+//for all likes to an individual post
+class PostLikersLoaded extends PostState {
+  final List<Author> likers;
+
+  PostLikersLoaded(this.likers);
+}
