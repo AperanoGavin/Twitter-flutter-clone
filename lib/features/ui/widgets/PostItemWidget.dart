@@ -102,7 +102,15 @@ class PostItem extends StatelessWidget {
                         context.read<PostBloc>().add(LikePost(postId: post.id));
                       },
                     ),
-                    Text('${post.likesCount}'),
+                     GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/likes', arguments: post.id);
+                      },
+                      child: Text(
+                        '${post.likesCount}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                     SizedBox(width: 16.0),
                     IconButton(
                       icon: Icon(Icons.comment),
