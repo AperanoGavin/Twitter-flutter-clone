@@ -27,12 +27,20 @@ class HomeScreen extends StatelessWidget {
             }
 
             if (state is PostLoaded) {
-              return ListView.builder(
-                itemCount: state.posts.length,
-                itemBuilder: (context, index) {
-                  final post = state.posts[index];
-                  return PostItem(post: post);
+              return RefreshIndicator(
+                strokeWidth: 100, //
+                color: Colors.black,
+                backgroundColor: Colors.white,
+                onRefresh: () async {
+                  context.read<PostBloc>().add(LoadPosts(page: 1));
                 },
+                child: ListView.builder(
+                  itemCount: state.posts.length,
+                  itemBuilder: (context, index) {
+                    final post = state.posts[index];
+                    return PostItem(post: post);
+                  },
+                ),
               );
             }
 
