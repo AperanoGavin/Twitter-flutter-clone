@@ -18,8 +18,9 @@ import 'package:provider/provider.dart';
 import 'features/ui/home/HomeScreen.dart';
 import 'repositories/postRepository.dart';
 import 'core/network/endpoints/posts/PostApi.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'features/ui/post/like/ListLikeScreen.dart';
 
 
 /*  */
@@ -92,7 +93,17 @@ class MyApp extends StatelessWidget {
             child: ManagePostScreen(post: post),
           );
         },
-       // '/search': (context) => SearchScreen(), // 
+         '/likes': (context) {
+          final postId = ModalRoute.of(context)!.settings.arguments as String;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            ),
+            child: ListLikeScreen(postId: postId),
+          );
+        },
+        
+       
       },
     );
   }
