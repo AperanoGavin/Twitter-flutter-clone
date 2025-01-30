@@ -23,27 +23,37 @@ class HomeScreen extends StatelessWidget {
             }
 
             if (state is PostLoaded) {
-              return CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    title: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/X_logo_2023_%28white%29.png/480px-X_logo_2023_%28white%29.png',
-                        height: 40, // Adjust the height as needed
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                    context.read<PostBloc>().add(LoadPosts(page: 1));
+                },
+                color: Colors.black,
+                backgroundColor: Colors.transparent,
+                strokeWidth: 0.01,
+                
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      title: Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/X_logo_2023_%28white%29.png/480px-X_logo_2023_%28white%29.png',
+                          height: 40, // Adjust the height as needed
+                      ),
+                      backgroundColor: Colors.black,
+                      floating: true,
+                      snap: true,
                     ),
-                    backgroundColor: Colors.black,
-                    floating: true,
-                    snap: true,
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final post = state.posts[index];
-                        return PostItem(post: post);
-                      },
-                      childCount: state.posts.length,
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final post = state.posts[index];
+                          return PostItem(post: post);
+                        },
+                        childCount: state.posts.length,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                )
               );
             }
 
