@@ -94,19 +94,24 @@ class Post {
 
     );
   }
+}
 
+class PostCreate {
+  final String content;
+  final String? imageUrl;
+  final String? parent;
 
- /*  Map<String, dynamic> toJson() {
+  PostCreate({
+    required this.content,
+    this.imageUrl,
+    this.parent,
+  });
+
+  Map<String, dynamic> toJson() {
     return {
       'content': content,
-      'parent': parent,
-      'createdAt': createdAt.toIso8601String(),
       'imageUrl': imageUrl,
-      'commentsCount': commentsCount,
-      'author': author.toJson(),
-      'id': id,
-      'likesCount': likesCount,
-      'updatedAt': updatedAt.toIso8601String(),
+      'parent': parent,
     };
-  } */
+  }
 }
