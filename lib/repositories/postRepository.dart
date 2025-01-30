@@ -50,4 +50,12 @@ class PostRepository {
       throw Exception('Failed to delete post: $e');
     }
   }
+
+  Future<List<Author>> getPostLikers(String postId) async {
+    try {
+      return await _postApi.getPostLikers(postId);
+    } catch (e) {
+      throw Exception('Failed to load post likers: $e');
+    }
+  }
 }
