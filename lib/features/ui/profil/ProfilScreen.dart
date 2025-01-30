@@ -7,6 +7,7 @@ import '../../../features/blocs/profil/ProfilEvent.dart';
 import '../../../features/blocs/profil/ProfilState.dart';
 import '../../../repositories/userRepository.dart';
 import '../../../services/AuthService.dart';
+import '../../../services/ImageService.dart';
 
 
 class ProfilScreen extends StatelessWidget {
@@ -14,6 +15,7 @@ class ProfilScreen extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController avatarController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final ImageService _imageService = ImageService();
   
 
  
@@ -23,8 +25,17 @@ class ProfilScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Profile'),
         backgroundColor: Colors.black,
+        flexibleSpace: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.network(
+                _imageService.getRandomImageUrl(),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
       ),
       body: BlocProvider(
         create: (context) => ProfilBloc(
