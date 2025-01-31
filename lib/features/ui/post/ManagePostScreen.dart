@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/core/model/post/post.dart';
+import 'package:esgix/utils/validators.dart';
 
 class ManagePostScreen extends StatefulWidget {
   final Post? post;
@@ -190,7 +191,19 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
 
   Widget _buildSubmitButton(BuildContext context) {
     return ElevatedButton(
-      onPressed: _submit,
+      //onPressed: _submit,
+      onPressed: () {
+        if (isValidUrl(_imageUrlController.text) || _imageUrlController.text.isEmpty) {
+          _submit();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('L\'URL de l\'image n\'est pas valide.'),
+            ),
+          );
+        }
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

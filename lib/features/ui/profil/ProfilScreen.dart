@@ -8,6 +8,7 @@ import '../../../features/blocs/profil/ProfilState.dart';
 import '../../../repositories/userRepository.dart';
 import '../../../services/AuthService.dart';
 import '../../../services/ImageService.dart';
+import 'package:esgix/utils/validators.dart';
 
 
 class ProfilScreen extends StatelessWidget {
@@ -16,7 +17,6 @@ class ProfilScreen extends StatelessWidget {
   final TextEditingController avatarController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final ImageService _imageService = ImageService();
-  
 
  
 
@@ -142,13 +142,22 @@ class ProfilScreen extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          context.read<ProfilBloc>().add(
-            UpdateProfil(
-              username: usernameController.text,
-              description: descriptionController.text,
-              avatar: avatarController.text,
-            ),
-          );
+          if (isValidUrl(avatarController.text)) {
+            context.read<ProfilBloc>().add(
+              UpdateProfil(
+                username: usernameController.text,
+                description: descriptionController.text,
+                avatar: avatarController.text,
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text('L\'URL de l\'avatar n\'est pas valide.'),
+              ),
+            );
+          }
         }
       },
       style: ElevatedButton.styleFrom(
