@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => BlocProvider(
           create: (context) => PostBloc(
             postRepository: context.read<PostRepository>(),
-          )..add(LoadPosts(page: 1)),
+          )..add(LoadPosts(page: 0)),
           child: HomeScreen(),
         ), 
         '/managePost': (context) {

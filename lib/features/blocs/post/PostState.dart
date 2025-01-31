@@ -4,7 +4,11 @@ abstract class PostState {}
 
 class PostInitial extends PostState {}
 
-class PostLoading extends PostState {}
+class PostLoading extends PostState {
+  final bool loadMore;
+
+  PostLoading({this.loadMore = false});
+}
 
 class PostLoaded extends PostState {
   final List<Post> posts;
@@ -23,4 +27,12 @@ class PostLikersLoaded extends PostState {
   final List<Author> likers;
 
   PostLikersLoaded(this.likers);
+}
+
+
+//loading more 
+class PostLoadingMore extends PostState {
+  final List<Post> posts;
+
+  PostLoadingMore(this.posts);
 }

@@ -4,8 +4,12 @@ abstract class PostEvent {}
 
 class LoadPosts extends PostEvent {
   final int page;
+  final bool loadMore;
 
-  LoadPosts({required this.page});
+  LoadPosts({required this.page  , this.loadMore = false});
+  @override
+  List<Object?> get props => [page, loadMore];
+
 }
 
 class LikePost extends PostEvent {
@@ -41,3 +45,6 @@ class LoadPostLikers extends PostEvent {
 
   LoadPostLikers({required this.postId});
 }
+
+//loadMore
+
