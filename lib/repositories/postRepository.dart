@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../core/model/post/post.dart';
 import '../core/network/endpoints/posts/PostApi.dart';
 
@@ -9,9 +11,9 @@ class PostRepository {
 
 
 
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getPosts(int page) async {
     try {
-      return await _postApi.get();
+      return await _postApi.get(page);
     } catch (e) {
       throw Exception('Failed to load posts: $e');
     }

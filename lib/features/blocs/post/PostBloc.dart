@@ -20,10 +20,22 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   Future<void> _onLoadPosts(LoadPosts event, Emitter<PostState> emit) async {
-    emit(PostLoading());
     try {
-      final posts = await postRepository.getPosts();
-      emit(PostLoaded(posts));
+      if (event.loadMore) {
+        final currentState = state as PostLoaded;
+        emit(PostLoadingMore(currentState.posts)); // État intermédiaire
+      } else {
+        emit(PostLoading());
+      }
+
+      final newPosts = await postRepository.getPosts(event.page);
+
+      if (event.loadMore) {
+        final currentState = state as PostLoadingMore;
+        emit(PostLoaded([...currentState.posts, ...newPosts]));
+      } else {
+        emit(PostLoaded(newPosts));
+      }
     } catch (e) {
       emit(PostError(e.toString()));
     }
@@ -50,7 +62,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Future<void> _onCreatePost(CreatePost event, Emitter<PostState> emit) async {
     try {
       await postRepository.createPost(event.postCreate);
-      add(LoadPosts(page: 1)); 
+      add(LoadPosts(page: 0)); 
     } catch (e) {
       emit(PostError(e.toString()));
     }
@@ -60,7 +72,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       
       await postRepository.updatePost(event.postCreate , event.postId);
-      add(LoadPosts(page: 1)); // Reload posts after update
+      add(LoadPosts(page: 0)); // Reload posts after update
     } catch (e) {
       emit(PostError(e.toString()));
     }
@@ -69,7 +81,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Future<void> _onDeletePost(DeletePost event, Emitter<PostState> emit) async {
     try {
       await postRepository.deletePost(event.postId);
-      add(LoadPosts(page: 1)); 
+      add(LoadPosts(page: 0)); 
     } catch (e) {
       emit(PostError(e.toString()));
     }

@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => PostBloc(
           postRepository: context.read<PostRepository>(),
-        )..add(LoadPosts(page: 1)),
+        )..add(LoadPosts(page: 0)),
         child: BlocBuilder<PostBloc, PostState>(
           builder: (context, state) {
             if (state is PostLoading) {
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
               return RefreshIndicator(
                 onRefresh: () async {
-                    context.read<PostBloc>().add(LoadPosts(page: 1));
+                    context.read<PostBloc>().add(LoadPosts(page: 0));
                 },
                 color: Colors.black,
                 backgroundColor: Colors.transparent,
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
           final result = await Navigator.pushNamed(context, '/managePost');
           if (result == true) {
             // Trigger an API call to refresh the data
-            context.read<PostBloc>().add(LoadPosts(page: 1));
+            context.read<PostBloc>().add(LoadPosts(page: 0));
           }
         },
         child: Icon(Icons.add),
@@ -82,4 +82,5 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: NavbarWidget(),
     );
   }
+  
 }
