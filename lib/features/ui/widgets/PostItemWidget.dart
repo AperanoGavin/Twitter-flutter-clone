@@ -89,7 +89,10 @@ class PostItem extends StatelessWidget {
                 Image.network(
                   post.imageUrl!,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
+                  height: 400,
+                
+
                 ),
               Padding(
                 padding: EdgeInsets.all(8.0),
