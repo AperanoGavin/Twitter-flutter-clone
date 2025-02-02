@@ -59,13 +59,25 @@ class UserProfilScreen extends StatelessWidget {
               final user = state.user;
               return SingleChildScrollView(
                 padding: EdgeInsets.all(24),
-                child: Column(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildAvatar(user.avatar),
-                    SizedBox(height: 20),
-                    _buildUsername(user.username),
-                    SizedBox(height: 20),
-                    _buildDescription(user.description),
+                    Column(
+                      children: [
+                        _buildAvatar(user.avatar),
+                        SizedBox(height: 8),
+                        _buildUsername(user.username),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _buildDescription(user.description),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -100,15 +112,29 @@ class UserProfilScreen extends StatelessWidget {
     );
   }
 
-  // Widget pour afficher la description
+ // Widget pour afficher la description
   Widget _buildDescription(String? description) {
-    return Text(
-      description ?? 'No description provided',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
+    if (description == null || description.isEmpty) {
+      return Container();
+    }
+    return Container(
+      height: 100, // Hauteur fixe pour le conteneur
+      padding: EdgeInsets.all(17.0),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 23, 19, 19),
+        borderRadius: BorderRadius.circular(28.0),
+        //border: Border.all(color: Colors.white),
       ),
-      textAlign: TextAlign.center,
+      child: SingleChildScrollView(
+        child: Text(
+          description ?? '',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 }
