@@ -24,7 +24,8 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   Future<void> _onLoadProfil(LoadProfil event, Emitter<ProfilState> emit) async {
     emit(ProfilLoading());
     try {
-      final userId = await authService.getUserId();
+      final userId = event.userId ?? await authService.getUserId();
+      //final userId = await authService.getUserId();
       if (userId == null) throw Exception('User not logged in');
       
       final user = await userRepository.getUserById(userId);

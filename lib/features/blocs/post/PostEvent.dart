@@ -47,5 +47,3 @@ class LoadPostLikers extends PostEvent {
   LoadPostLikers({required this.postId});
 }
 
-//loadMore
-

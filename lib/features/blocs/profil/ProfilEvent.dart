@@ -4,6 +4,10 @@ abstract class ProfilEvent  {
 }
 
 class LoadProfil extends ProfilEvent {
+    final String? userId;
+
+  const LoadProfil({this.userId});
+
 
 }
 
