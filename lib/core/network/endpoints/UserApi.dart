@@ -45,12 +45,5 @@ class UserApi {
     }
   }
 
-  Future<List<User>> getPostLikers(String postId) async {
-    final response = await _apiClient.get('posts/$postId/likers');
-    return (json.decode(response.body) as List)
-        .map((e) => User.fromJson(e))
-        .toList();
-  }
-
   
 }
