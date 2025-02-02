@@ -67,6 +67,7 @@ class UserProfilScreen extends StatelessWidget {
                         _buildAvatar(user.avatar),
                         SizedBox(height: 8),
                         _buildUsername(user.username),
+                        SizedBox(height: 8),
                       ],
                     ),
                     SizedBox(width: 20),
@@ -75,6 +76,14 @@ class UserProfilScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           _buildDescription(user.description),
+                          SizedBox(height: 100),
+                          Row(
+                            children: [
+                              _buildNavigationButtons(context),
+                              //pousser ver la droite
+                              
+                            ],
+                          ),                      
                         ],
                       ),
                     ),
@@ -82,6 +91,7 @@ class UserProfilScreen extends StatelessWidget {
                 ),
               );
             }
+
 
             return Center(child: Text('Something went wrong!'));
           },
@@ -91,7 +101,6 @@ class UserProfilScreen extends StatelessWidget {
     );
   }
 
-  // Widget pour afficher l'avatar
   Widget _buildAvatar(String? avatarUrl) {
     return CircleAvatar(
       radius: 50,
@@ -100,7 +109,6 @@ class UserProfilScreen extends StatelessWidget {
     );
   }
 
-  // Widget pour afficher le nom d'utilisateur
   Widget _buildUsername(String username) {
     return Text(
       username,
@@ -112,7 +120,6 @@ class UserProfilScreen extends StatelessWidget {
     );
   }
 
- // Widget pour afficher la description
   Widget _buildDescription(String? description) {
     if (description == null || description.isEmpty) {
       return Container();
@@ -137,4 +144,43 @@ class UserProfilScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  Widget _buildNavigationButtons(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center, // Centrer les boutons verticalement
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/likedPosts', arguments: userId);
+          },
+          child: Text('Liked Posts'),
+          style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          padding: EdgeInsets.symmetric(vertical: 20 , horizontal: 58),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        ),
+        SizedBox(height: 40),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/userPosts', arguments: userId);
+          },
+          child: Text('All Posts'),
+          style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          padding: EdgeInsets.symmetric(vertical: 20 , horizontal: 69),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        ),
+      ],
+    );
+  }
+
 }
