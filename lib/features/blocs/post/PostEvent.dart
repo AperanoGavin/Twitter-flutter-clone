@@ -4,11 +4,12 @@ abstract class PostEvent {}
 
 class LoadPosts extends PostEvent {
   final int page;
-  final bool loadMore;
-
-  LoadPosts({required this.page  , this.loadMore = false});
-  @override
-  List<Object?> get props => [page, loadMore];
+  final int pageSize;
+  
+  LoadPosts({
+    this.page = 0,
+    this.pageSize = 10, // Utilisation de l'offset de l'API
+  });
 
 }
 

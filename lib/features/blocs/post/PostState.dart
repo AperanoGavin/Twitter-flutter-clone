@@ -12,8 +12,10 @@ class PostLoading extends PostState {
 
 class PostLoaded extends PostState {
   final List<Post> posts;
+  final int currentPage;
+  final bool hasReachedMax;
 
-  PostLoaded(this.posts);
+  PostLoaded(this.posts, this.currentPage, {this.hasReachedMax = false});
 }
 
 class PostError extends PostState {
@@ -27,12 +29,4 @@ class PostLikersLoaded extends PostState {
   final List<Author> likers;
 
   PostLikersLoaded(this.likers);
-}
-
-
-//loading more 
-class PostLoadingMore extends PostState {
-  final List<Post> posts;
-
-  PostLoadingMore(this.posts);
 }
