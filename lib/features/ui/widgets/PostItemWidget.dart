@@ -39,9 +39,15 @@ class PostItem extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(post.author.avatar ?? ""),
-                    ),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'profil/userId', arguments: post.author.id);
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(post.author.avatar ?? ""),
+                        ),
+                      ),
+                    
                     SizedBox(width: 8.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,17 +84,17 @@ class PostItem extends StatelessWidget {
                 ),
               ),
 
-          // Contenu du post (texte et image)
-          if (post.imageUrl != null && post.imageUrl!.isNotEmpty)
-            Image.network(
-              post.imageUrl!,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(post.content),
-          ),
+              // Contenu du post (texte et image)
+              if (post.imageUrl != null && post.imageUrl!.isNotEmpty)
+                Image.network(
+                  post.imageUrl!,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(post.content),
+              ),
 
               // Actions (like et commentaire)
               Padding(
