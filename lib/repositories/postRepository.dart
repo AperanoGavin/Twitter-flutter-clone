@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import '../core/model/post/post.dart';
 import '../core/network/endpoints/posts/PostApi.dart';

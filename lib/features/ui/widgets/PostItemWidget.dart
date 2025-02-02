@@ -1,8 +1,6 @@
 import 'package:esgix/services/AuthService.dart';
-import 'package:esgix/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/core/model/post/post.dart';
@@ -10,9 +8,11 @@ import 'package:esgix/core/model/post/post.dart';
 class PostItem extends StatelessWidget {
   final Post post;
 
-  PostItem({
+
+  const PostItem({
+    Key? key,
     required this.post,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
