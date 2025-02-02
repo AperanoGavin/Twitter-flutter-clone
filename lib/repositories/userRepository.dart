@@ -23,12 +23,4 @@ class UserRepository {
     }
   }
 
-  // Récupérer les likers d'un post
-  Future<List<User>> getPostLikers(String postId) async {
-    try {
-      return await _userApi.getPostLikers(postId);
-    } catch (e) {
-      throw Exception('Failed to fetch likers: $e');
-    }
-  }
 }
