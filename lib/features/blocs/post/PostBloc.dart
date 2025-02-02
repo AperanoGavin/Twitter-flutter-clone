@@ -61,17 +61,18 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
    Future<void> _onLikePost(LikePost event, Emitter<PostState> emit) async {
     try {
-      await postRepository.likePost(event.postId);
-      final currentState = state as PostLoaded;
-      final updatedPosts = currentState.posts.map((post) {
-        if (post.id == event.postId) {
-            final isLiked = !post.isLiked;
-            final likesCount = isLiked ? post.likesCount + 1 : post.likesCount - 1;
-          return post.copyWith(likesCount: likesCount, isLiked: isLiked);
-      }
-        return post;
-      }).toList();
-      emit(PostLoaded(updatedPosts, currentState.currentPage));
+        await postRepository.likePost(event.postId);
+        
+        final currentState = state as PostLoaded;
+        final updatedPosts = currentState.posts.map((post) {
+          if (post.id == event.postId) {
+              final likedByUser = !post.likedByUser; //  si l'utilisateur a déjà liké le post, on le délike et vice versa
+              final likesCount = likedByUser ? post.likesCount + 1 : post.likesCount - 1; // on incrémente ou décrémente le nombre de likes
+            return post.copyWith(likesCount: likesCount, likedByUser: likedByUser);
+        }
+          return post;
+        }).toList();
+        emit(PostLoaded(updatedPosts, currentState.currentPage));
     } catch (e) {
       emit(PostError(e.toString()));
     }

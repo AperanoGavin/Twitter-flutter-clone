@@ -36,7 +36,7 @@ class Post {
   final String id;
   final int likesCount;
   final DateTime updatedAt;
-  final bool isLiked;
+  final bool likedByUser;
 
   Post({
     required this.content,
@@ -48,7 +48,7 @@ class Post {
     required this.id,
     this.likesCount = 0,
     required this.updatedAt,
-     this.isLiked = false, 
+    required this.likedByUser , 
   });
 
   Post copyWith({
@@ -61,7 +61,7 @@ class Post {
     DateTime? createdAt,
     DateTime? updatedAt,
     Author? author,
-    bool? isLiked, 
+    bool? likedByUser, 
 
   }) {
     return Post(
@@ -74,7 +74,7 @@ class Post {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       author: author ?? this.author,
-      isLiked: isLiked ?? this.isLiked, 
+      likedByUser: likedByUser ?? this.likedByUser, 
 
     );
   }
@@ -90,7 +90,7 @@ class Post {
       id: json['id'],
       likesCount: json['likesCount'] ?? 0,
       updatedAt: DateTime.parse(json['updatedAt']),
-      isLiked: json['isLiked'] ?? false, 
+      likedByUser: json['likedByUser'], 
 
     );
   }
