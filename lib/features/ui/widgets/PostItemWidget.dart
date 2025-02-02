@@ -1,6 +1,7 @@
 import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/core/model/post/post.dart';
@@ -12,7 +13,7 @@ class PostItem extends StatelessWidget {
   const PostItem({
     Key? key,
     required this.post,
-  }) : super(key: key);
+  }) : super(key: key);//super(key: key) permet de passer la clé key au constructeur de la classe parente (StatelessWidget) qui en a besoin pour identifier le widget dans le widget tree.
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +97,8 @@ class PostItem extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: Icon(
-                        post.isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: post.isLiked ? Colors.red : Colors.white,
+                        post.likedByUser ? Icons.favorite : Icons.favorite_border,
+                        color: post.likedByUser ? Colors.red : Colors.white,
                       ),
                       onPressed: () {
                         context.read<PostBloc>().add(LikePost(postId: post.id));
