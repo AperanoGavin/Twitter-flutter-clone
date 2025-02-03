@@ -66,9 +66,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
    Future<void> _onLikePost(LikePost event, Emitter<PostState> emit) async {
     try {
         await postRepository.likePost(event.postId);
-        
-        final currentState = state as PostLoaded;
-        final updatedPosts = currentState.posts.map((post) {
+        if (state is PostLoaded) {
+          final currentState = state as PostLoaded;
+          final updatedPosts = currentState.posts.map((post) {
           if (post.id == event.postId) {
               final likedByUser = !(post.likedByUser ?? false); //  si l'utilisateur a déjà liké le post, on le délike et vice versa
               final likesCount = likedByUser ? post.likesCount + 1 : post.likesCount - 1; // on incrémente ou décrémente le nombre de likes
@@ -76,7 +76,23 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         }
           return post;
         }).toList();
-        emit(PostLoaded(updatedPosts, currentState.currentPage));
+
+          emit(PostLoaded(updatedPosts, currentState.currentPage));
+        }else if( state is PostSearchLoaded){
+          final currentState = state as PostSearchLoaded;
+          final updatedPosts = currentState.posts.map((post) {
+          if (post.id == event.postId) {
+              final likedByUser = !(post.likedByUser ?? false); 
+              final likesCount = likedByUser ? post.likesCount + 1 : post.likesCount - 1; 
+            return post.copyWith(likesCount: likesCount, likedByUser: likedByUser);
+        }
+          return post;
+        }).toList();
+
+          emit(PostSearchLoaded(updatedPosts));
+        }
+
+       //emit(PostLoaded(updatedPosts, currentState.currentPage));
     } catch (e) {
       emit(PostError(e.toString()));
     }
