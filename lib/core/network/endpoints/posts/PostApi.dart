@@ -48,6 +48,20 @@ class PostApi {
         .toList();
   }
 
+  Future<List<Post>> getPostsByUser(String userId) async {
+    final response = await _apiClient.get('users/$userId/posts?offset=1000000');
+    final List<dynamic> jsonList = json.decode(response.body);
+    return jsonList.map((json) => Post.fromJson(json)).toList();
+  }
+
+   Future<List<Post>> searchPosts(String query) async {
+    final response = await _apiClient.get('search?query=$query');
+    final Map<String, dynamic> jsonResponse = json.decode(response.body);
+    final List<dynamic> jsonList = jsonResponse['data'];
+    return jsonList.map((json) => Post.fromJson(json)).toList();
+
+   }
+
 
   
 }

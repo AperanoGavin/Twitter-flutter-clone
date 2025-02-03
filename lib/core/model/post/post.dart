@@ -36,7 +36,7 @@ class Post {
   final String id;
   final int likesCount;
   final DateTime updatedAt;
-  final bool likedByUser;
+  final bool? likedByUser;
 
   Post({
     required this.content,
@@ -48,7 +48,7 @@ class Post {
     required this.id,
     this.likesCount = 0,
     required this.updatedAt,
-    required this.likedByUser , 
+    this.likedByUser , 
   });
 
   Post copyWith({
@@ -90,7 +90,7 @@ class Post {
       id: json['id'],
       likesCount: json['likesCount'] ?? 0,
       updatedAt: DateTime.parse(json['updatedAt']),
-      likedByUser: json['likedByUser'], 
+      likedByUser: json['likedByUser'] ?? false, 
 
     );
   }

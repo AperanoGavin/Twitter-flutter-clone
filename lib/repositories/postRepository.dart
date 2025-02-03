@@ -59,4 +59,22 @@ class PostRepository {
       throw Exception('Failed to load post likers: $e');
     }
   }
+
+  Future<List<Post>> getPostsByUser(String userId) async {
+    try {
+      return await _postApi.getPostsByUser(userId);
+    } catch (e) {
+      throw Exception('Failed to load posts by user: $e');
+    }
+  }
+
+  Future<List<Post>> searchPosts(String query) async {
+    print(query);
+    try {
+      return await _postApi.searchPosts(query);
+    } catch (e) {
+      throw Exception('Failed to search posts: $e');
+    }
+  }
+  
 }
