@@ -3,6 +3,7 @@ import 'package:esgix/core/network/endpoints/UserApi.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/features/ui/post/ManagePostScreen.dart';
+import 'package:esgix/features/ui/post/search/PostSearchScreen.dart';
 import 'package:esgix/repositories/userRepository.dart';
 import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +113,12 @@ class MyApp extends StatelessWidget {
             child: ListLikeScreen(postId: postId),
           );
         },
+        '/search': (context) => BlocProvider(
+          create: (context) => PostBloc(
+            postRepository: context.read<PostRepository>(),
+          ),
+          child: PostSearchScreen(),
+        ),
         
        
       },

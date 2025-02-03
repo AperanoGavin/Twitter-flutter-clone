@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:esgix/features/blocs/post/PostState.dart';
+import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
 import 'package:esgix/features/ui/widgets/PostItemWidget.dart';
 import 'package:esgix/repositories/postRepository.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,20 @@ class PostSearchScreen extends StatefulWidget {
 
 class _PostSearchScreenState extends State<PostSearchScreen> {
 
+    Timer? _debounce;
+
+
   void _onSearchChanged(String value) {
-    if (value.isNotEmpty) {
-      BlocProvider.of<PostBloc>(context).add(SearchPosts(query: value));
-    }
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      context.read<PostBloc>().add(SearchPosts(query: value));
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
   }
 
   @override
@@ -35,6 +46,12 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
           onChanged: _onSearchChanged,
           decoration: InputDecoration(
             hintText: 'Search...',
+            filled: true,
+            fillColor: Colors.black,
+            contentPadding: EdgeInsets.all(1),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         ),
       ),
@@ -65,6 +82,8 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
                 return PostItem(post: post);
               },
             );
+           
+           
           }
 
           if (state is PostError) {
@@ -76,10 +95,15 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
           return Center(
             child: Text('No posts found'),
           );
+                    
 
         },
       ),
+       bottomNavigationBar: NavbarWidget(),
+
     );
+
   }
+
 
 }

@@ -17,8 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PagingController<int, Post> _pagingController = 
-      PagingController(firstPageKey: 0);
+  final PagingController<int, Post> _pagingController =  PagingController(firstPageKey: 0);
   static const _pageSize = 10; // Correspondant à l'offset de l'API
   late PostBloc _postBloc;
 
