@@ -92,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 floating: false,
                 snap: false,
                 pinned: true,
+                automaticallyImplyLeading: false,
               ),
               
               // Posts List with flutter_infinite_scroll_pagination

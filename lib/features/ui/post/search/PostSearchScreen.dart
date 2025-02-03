@@ -41,6 +41,7 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         title: TextField(
           onChanged: _onSearchChanged,
@@ -60,8 +61,6 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
         builder: (context, state) {
        
           if (state is PostSearchLoading) {
-            //rajouter un bouncer de chargement
-
 
             return Center(
               child: CircularProgressIndicator(),
