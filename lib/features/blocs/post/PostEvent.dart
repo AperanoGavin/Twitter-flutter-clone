@@ -39,11 +39,20 @@ class DeletePost extends PostEvent {
   DeletePost({required this.postId});
 }
 
-//for all likes to an individual post
 
 class LoadPostLikers extends PostEvent {
   final String postId;
 
   LoadPostLikers({required this.postId});
 }
+
+//search posts screen implementation
+
+class SearchPosts extends PostEvent {
+  final String query;
+
+  SearchPosts({required this.query});
+}
+
+class CancelSearch extends PostEvent {}
 

@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
@@ -19,6 +21,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<DeletePost>(_onDeletePost); 
     //likes per post
     on<LoadPostLikers>(_onLoadPostLikers);
+    //implement search posts
+    on<SearchPosts>(_onSearchPosts);
   }
 
   Future<void> _onLoadPosts(LoadPosts event, Emitter<PostState> emit) async {
@@ -66,7 +70,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         final currentState = state as PostLoaded;
         final updatedPosts = currentState.posts.map((post) {
           if (post.id == event.postId) {
-              final likedByUser = !post.likedByUser; //  si l'utilisateur a déjà liké le post, on le délike et vice versa
+              final likedByUser = !(post.likedByUser ?? false); //  si l'utilisateur a déjà liké le post, on le délike et vice versa
               final likesCount = likedByUser ? post.likesCount + 1 : post.likesCount - 1; // on incrémente ou décrémente le nombre de likes
             return post.copyWith(likesCount: likesCount, likedByUser: likedByUser);
         }
@@ -118,4 +122,16 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
+  Future<void> _onSearchPosts(SearchPosts event, Emitter<PostState> emit) async {
+  emit(PostSearchLoading()); // Utilisez l'état dédié
+  try {
+    print("Début recherche: ${event.query}"); // Debug 1
+    final searchResults = await postRepository.searchPosts(event.query);
+    print("Résultats: ${searchResults.length}"); // Debug 2
+    emit(PostSearchLoaded(searchResults)); // État spécifique
+  } catch (e) {
+    print("Erreur recherche: $e"); // Debug 3
+    emit(PostSearchFailure(e.toString()));
+  }
+}
 }

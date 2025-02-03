@@ -30,3 +30,18 @@ class PostLikersLoaded extends PostState {
 
   PostLikersLoaded(this.likers);
 }
+
+class PostSearchLoaded extends PostState {
+  final List<Post> posts;
+
+  PostSearchLoaded(this.posts);
+}
+
+class PostSearchLoading extends PostState {}
+
+class PostSearchFailure extends PostState {
+  final String message;
+
+  PostSearchFailure(this.message);
+}
+
