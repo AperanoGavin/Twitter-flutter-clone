@@ -26,9 +26,19 @@ class PostApi {
   }
 
 
-  Future<List<Post>> get(int page , String? parent) async {
+  Future<List<Post>> get(int page , String? parent , String? userId , String? userAllPostsLike) async {
     try {
-      final response = await _apiClient.get('posts?parent=$parent&&page=$page');
+     
+      final response;
+      if(userId!= null && userId.isNotEmpty){
+        response = await _apiClient.get('user/$userId/posts');
+      }else if(userAllPostsLike != null && userAllPostsLike.isNotEmpty){
+        print('userAllPostsLike: $userAllPostsLike');
+        response = await _apiClient.get('user/$userAllPostsLike/likes');
+      }
+      else{
+        response = await _apiClient.get('posts?parent=$parent&&page=$page');
+      }
       final Map<String, dynamic> jsonResponse = json.decode(response.body);
       final List<dynamic> jsonList = jsonResponse['data'];
       return jsonList.map((json) => Post.fromJson(json)).toList();

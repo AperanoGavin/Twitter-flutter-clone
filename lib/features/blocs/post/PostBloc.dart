@@ -38,7 +38,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostLoading());
       }
 
-      final newPosts = await postRepository.getPosts(event.page ,event.parent??'' );
+      final newPosts = await postRepository.getPosts(event.page ,event.parent??'' , event.userId??'' , event.userAllPostsLike??'' );
       
       print('Loading page: ${event.page}');
       print('New posts count: ${newPosts.length}');
