@@ -90,12 +90,23 @@ class MyApp extends StatelessWidget {
             child: UserProfilScreen(userId: userId),
           );
         },
-        '/home': (context) => BlocProvider(
-          create: (context) => PostBloc(
-            postRepository: context.read<PostRepository>(),
-          )..add(LoadPosts(page: 0)),
-          child: HomeScreen(),
-        ), 
+        '/home': (context) {
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            )..add(LoadPosts(page: 0 )),
+            child: HomeScreen(),
+          );
+        }, 
+        '/comment': (context) {
+          final String? parent = ModalRoute.of(context)?.settings.arguments as String?;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            )..add(LoadPosts(page: 0, parent:parent )),
+            child: HomeScreen( parent: parent),
+          );
+        }, 
         '/managePost': (context) {
           final post = ModalRoute.of(context)!.settings.arguments as Post?;
           return BlocProvider(

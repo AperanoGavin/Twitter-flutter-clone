@@ -10,7 +10,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:esgix/core/model/post/post.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String? parent;
+  const HomeScreen({Key? key , this.parent}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      _postBloc.add(LoadPosts(page: pageKey ~/ _pageSize)); // Division entière
+      _postBloc.add(LoadPosts(page: pageKey ~/ _pageSize , parent : widget.parent)); // Division entière
       
       await for (final state in _postBloc.stream) {
         if (state is PostLoaded) {
