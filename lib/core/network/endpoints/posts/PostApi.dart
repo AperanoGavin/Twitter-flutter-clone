@@ -37,6 +37,11 @@ class PostApi {
     }
   }
 
+  Future<Post> getPostById(String postId) async {
+    final response = await _apiClient.get('posts/$postId');
+    return Post.fromJson(json.decode(response.body));
+  }
+
   Future<void> toggleLike(String postId) async {
     await _apiClient.post('likes/$postId', {});
   }

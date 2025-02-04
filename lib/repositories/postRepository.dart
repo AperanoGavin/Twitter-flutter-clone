@@ -18,6 +18,14 @@ class PostRepository {
     }
   }
 
+  Future<Post> getPostById(String postId) async {
+    try {
+      return await _postApi.getPostById(postId);
+    } catch (e) {
+      throw Exception('Failed to load post: $e');
+    }
+  }
+
 
   Future<void> likePost(String postId) async {
     try {
