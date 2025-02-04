@@ -129,7 +129,7 @@ class PostItem extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.comment),
                       onPressed: () {
-                        // Naviguer vers la page des commentaires
+                        Navigator.pushNamed(context, '/comment', arguments: post.id);
                       },
                     ),
                     Text('${post.commentsCount}'),
