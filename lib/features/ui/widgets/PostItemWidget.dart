@@ -97,9 +97,15 @@ class PostItem extends StatelessWidget {
                   height: 400,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(post.content),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/post/id', arguments: post.id);
+                },
+                child: 
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(post.content),
+                  ),
               ),
 
               // Actions (like et commentaire)
@@ -129,6 +135,8 @@ class PostItem extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.comment),
                       onPressed: () {
+                      //Navigator.pushNamed(context, '/post/id', arguments: post.id);
+
                         Navigator.pushNamed(context, '/comment', arguments: post.id);
                       },
                     ),

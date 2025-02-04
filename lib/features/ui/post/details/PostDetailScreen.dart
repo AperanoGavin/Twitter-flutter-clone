@@ -60,6 +60,20 @@ class PostDetailScreen extends StatelessWidget {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF1DA1F2),
+        onPressed: () async {
+          print("postId: $postId");
+          final result = await Navigator.pushNamed(context, '/CommentPost' , arguments: postId);
+         /*  if (result == true) {
+            _refresh();
+          } */
+        },
+        child: const Icon(Icons.add),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+      ),
       bottomNavigationBar: NavbarWidget(),
     );
   }

@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
             child: HomeScreen(),
           );
         }, 
-        '/comment': (context) {
+         '/comment': (context) {
           final String? parent = ModalRoute.of(context)?.settings.arguments as String?;
           return BlocProvider(
             create: (context) => PostBloc(
@@ -106,14 +106,23 @@ class MyApp extends StatelessWidget {
             )..add(LoadPosts(page: 0, parent:parent )),
             child: HomeScreen( parent: parent),
           );
-        }, 
+        },  
         '/managePost': (context) {
           final post = ModalRoute.of(context)!.settings.arguments as Post?;
           return BlocProvider(
             create: (context) => PostBloc(
               postRepository: context.read<PostRepository>(),
             ),
-            child: ManagePostScreen(post: post),
+            child: ManagePostScreen(post: post ),
+          );
+        },
+        '/CommentPost': (context) {
+          final parent = ModalRoute.of(context)!.settings.arguments as String?;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            ),
+            child: ManagePostScreen(parent: parent),
           );
         },
         '/post/id':(context){

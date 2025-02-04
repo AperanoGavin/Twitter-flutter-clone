@@ -7,8 +7,9 @@ import 'package:esgix/utils/validators.dart';
 
 class ManagePostScreen extends StatefulWidget {
   final Post? post;
+  final String? parent;
 
-  ManagePostScreen({this.post});
+  ManagePostScreen({this.post , this.parent});
 
   @override
   _ManagePostScreenState createState() => _ManagePostScreenState();
@@ -26,11 +27,23 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
       _contentController.text = widget.post!.content;
       _imageUrlController.text = widget.post!.imageUrl ?? '';
     }
+    
   }
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      if (widget.post == null) {
+      if (widget.parent != null) {
+        print("manage post screen");
+        print(widget.parent );
+        context.read<PostBloc>().add(CreatePost(
+          postCreate: PostCreate(
+            content: _contentController.text,
+            imageUrl: _imageUrlController.text.isNotEmpty ? _imageUrlController.text : null,
+            parent: widget.parent,
+          ),
+        ));
+      }
+      else if (widget.post == null) {
         // Create new post
         context.read<PostBloc>().add(CreatePost(
           postCreate: PostCreate(

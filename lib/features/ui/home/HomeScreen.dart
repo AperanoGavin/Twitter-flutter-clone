@@ -148,19 +148,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF1DA1F2),
-        onPressed: () async {
-          final result = await Navigator.pushNamed(context, '/managePost');
-          if (result == true) {
-            _refresh();
-          }
-        },
-        child: const Icon(Icons.add),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-      ),
+      floatingActionButton: widget.parent == null
+          ? FloatingActionButton(
+              backgroundColor: const Color(0xFF1DA1F2),
+              onPressed: () async {
+                final result = await Navigator.pushNamed(context, '/managePost');
+                if (result == true) {
+                  _refresh();
+                }
+              },
+              child: const Icon(Icons.add),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+            )
+          : null,
       bottomNavigationBar: NavbarWidget(),
     );
   }
