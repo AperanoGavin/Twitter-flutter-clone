@@ -19,10 +19,12 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<CreatePost>(_onCreatePost);
     on<UpdatePost>(_onUpdatePost);
     on<DeletePost>(_onDeletePost); 
+    on<LoadPostDetails>(_onLoadPostDetails);
     //likes per post
     on<LoadPostLikers>(_onLoadPostLikers);
     //implement search posts
     on<SearchPosts>(_onSearchPosts);
+
   }
 
   Future<void> _onLoadPosts(LoadPosts event, Emitter<PostState> emit) async {
@@ -140,14 +142,25 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<void> _onSearchPosts(SearchPosts event, Emitter<PostState> emit) async {
   emit(PostSearchLoading()); // Utilisez l'état dédié
-  try {
-    print("Début recherche: ${event.query}"); // Debug 1
-    final searchResults = await postRepository.searchPosts(event.query);
-    print("Résultats: ${searchResults.length}"); // Debug 2
-    emit(PostSearchLoaded(searchResults)); // État spécifique
-  } catch (e) {
-    print("Erreur recherche: $e"); // Debug 3
-    emit(PostSearchFailure(e.toString()));
+    try {
+      print("Début recherche: ${event.query}"); // Debug 1
+      final searchResults = await postRepository.searchPosts(event.query);
+      print("Résultats: ${searchResults.length}"); // Debug 2
+      emit(PostSearchLoaded(searchResults)); // État spécifique
+    } catch (e) {
+      print("Erreur recherche: $e"); // Debug 3
+      emit(PostSearchFailure(e.toString()));
+    }
   }
-}
+
+  Future<void> _onLoadPostDetails(LoadPostDetails event, Emitter<PostState> emit) async {
+    emit(PostLoading());
+    try {
+      final post = await postRepository.getPostById(event.postId);
+      emit(PostDetailsLoaded(post));
+    } catch (e) {
+      emit(PostError(e.toString()));
+    }
+  }
+
 }

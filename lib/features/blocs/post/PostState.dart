@@ -18,6 +18,14 @@ class PostLoaded extends PostState {
   PostLoaded(this.posts, this.currentPage, {this.hasReachedMax = false});
 }
 
+class PostDetailsLoaded extends PostState {
+  final Post post;
+
+  PostDetailsLoaded(this.post);
+}
+
+class PostDetailsLoading extends PostState {}
+
 class PostError extends PostState {
   final String message;
 
