@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import'package:esgix/services/AuthService.dart';
 
 
 class NavbarWidget extends StatelessWidget {
@@ -27,18 +28,25 @@ class NavbarWidget extends StatelessWidget {
       backgroundColor: Colors.black,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(
+      items: [
+        const BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
         ),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: 'Search',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: GestureDetector(
+            onLongPress: () {
+              final authService = AuthService();
+              authService.showLogoutConfirmation(context);
+            },
+            child: const Icon(Icons.person), // Icône profil
+          ),
           label: 'Profil',
+         
         ),
       ],
       onTap: (index) {
