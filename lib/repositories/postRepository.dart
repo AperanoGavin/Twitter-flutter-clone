@@ -10,9 +10,10 @@ class PostRepository {
 
 
 
-  Future<List<Post>> getPosts(int page) async {
+  Future<List<Post>> getPosts(int page , String? parent) async {
     try {
-      return await _postApi.get(page);
+      print(parent);
+      return await _postApi.get(page , parent);
     } catch (e) {
       throw Exception('Failed to load posts: $e');
     }
