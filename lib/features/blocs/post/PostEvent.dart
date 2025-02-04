@@ -56,3 +56,12 @@ class SearchPosts extends PostEvent {
 
 class CancelSearch extends PostEvent {}
 
+
+//post details
+
+class LoadPostDetails extends PostEvent {
+  final String postId;
+
+  LoadPostDetails({required this.postId});
+}
+
