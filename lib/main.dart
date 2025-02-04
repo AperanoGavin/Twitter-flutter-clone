@@ -3,6 +3,7 @@ import 'package:esgix/core/network/endpoints/UserApi.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/features/ui/post/ManagePostScreen.dart';
+import 'package:esgix/features/ui/post/details/PostDetailScreen.dart';
 import 'package:esgix/features/ui/post/search/PostSearchScreen.dart';
 import 'package:esgix/repositories/userRepository.dart';
 import 'package:esgix/services/AuthService.dart';
@@ -104,6 +105,16 @@ class MyApp extends StatelessWidget {
             child: ManagePostScreen(post: post),
           );
         },
+        '/post/id':(context){
+          final postId = ModalRoute.of(context)!.settings.arguments as String;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            ),
+            child: PostDetailScreen(postId: postId),
+          );
+        }
+        ,
          '/likes': (context) {
           final postId = ModalRoute.of(context)!.settings.arguments as String;
           return BlocProvider(

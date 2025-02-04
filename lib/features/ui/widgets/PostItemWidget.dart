@@ -86,14 +86,17 @@ class PostItem extends StatelessWidget {
 
               // Contenu du post (texte et image)
               if (post.imageUrl != null && post.imageUrl!.isNotEmpty)
-                Image.network(
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/post/id', arguments: post.id);
+                },
+                child: Image.network(
                   post.imageUrl!,
                   width: double.infinity,
                   fit: BoxFit.contain,
                   height: 400,
-                
-
                 ),
+              ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(post.content),
