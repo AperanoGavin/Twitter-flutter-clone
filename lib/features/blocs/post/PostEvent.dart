@@ -6,13 +6,17 @@ class LoadPosts extends PostEvent {
   final int page;
   final int pageSize;
   final String? parent;
+  final String? userId;
+  final String? userAllPostsLike;
   
   LoadPosts({
     this.page = 0,
     this.pageSize = 10, // Utilisation de l'offset de l'API
-    this.parent
+    this.parent,
+    this.userId,
+    this.userAllPostsLike
   }) {
-    print('LoadPosts constructor - parent: $parent'); // Ajoutez ce print
+    print('LoadPosts constructor - parent userAllPostsLike: $userAllPostsLike'); 
   }
 
 }

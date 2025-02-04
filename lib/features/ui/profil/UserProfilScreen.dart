@@ -13,9 +13,12 @@ import 'package:esgix/utils/validators.dart';
 
 class UserProfilScreen extends StatelessWidget {
   final String userId; 
+  late final String userAllPostsLike;
   final ImageService _imageService = ImageService();
 
-  UserProfilScreen({required this.userId}); 
+  UserProfilScreen({required this.userId}) {
+    userAllPostsLike = userId;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +155,7 @@ class UserProfilScreen extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/likedPosts', arguments: userId);
+            Navigator.pushNamed(context, '/userAllPostsLike', arguments: userAllPostsLike);
           },
           child: Text('Liked Posts'),
           style: ElevatedButton.styleFrom(
@@ -167,7 +170,7 @@ class UserProfilScreen extends StatelessWidget {
         SizedBox(height: 40),
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/userPosts', arguments: userId);
+            Navigator.pushNamed(context, '/postsByUser', arguments: userId);
           },
           child: Text('All Posts'),
           style: ElevatedButton.styleFrom(

@@ -107,6 +107,24 @@ class MyApp extends StatelessWidget {
             child: HomeScreen( parent: parent),
           );
         },  
+        '/postsByUser': (context) {
+          final String? userId = ModalRoute.of(context)?.settings.arguments as String?;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            )..add(LoadPosts(page: 0, userId:userId )),
+            child: HomeScreen( userId: userId),
+          );
+        },
+        '/userAllPostsLike': (context) {
+          final String? userAllPostsLike = ModalRoute.of(context)?.settings.arguments as String?;
+          return BlocProvider(
+            create: (context) => PostBloc(
+              postRepository: context.read<PostRepository>(),
+            )..add(LoadPosts(page: 0, userAllPostsLike:userAllPostsLike )),
+            child: HomeScreen( userAllPostsLike: userAllPostsLike),
+          );
+        },   
         '/managePost': (context) {
           final post = ModalRoute.of(context)!.settings.arguments as Post?;
           return BlocProvider(

@@ -11,7 +11,9 @@ import 'package:esgix/core/model/post/post.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? parent;
-  const HomeScreen({Key? key , this.parent}) : super(key: key);
+  final String? userId;
+  final String? userAllPostsLike;
+  const HomeScreen({Key? key , this.parent , this.userId , this.userAllPostsLike}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -33,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      _postBloc.add(LoadPosts(page: pageKey ~/ _pageSize , parent : widget.parent)); // Division entière
+      _postBloc.add(LoadPosts(page: pageKey ~/ _pageSize , parent : widget.parent , userId: widget.userId  , userAllPostsLike: widget.userAllPostsLike)); // Division entière
       
       await for (final state in _postBloc.stream) {
         if (state is PostLoaded) {
