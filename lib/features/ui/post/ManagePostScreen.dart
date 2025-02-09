@@ -9,7 +9,7 @@ class ManagePostScreen extends StatefulWidget {
   final Post? post;
   final String? parent;
 
-  ManagePostScreen({this.post , this.parent});
+  const ManagePostScreen({super.key, this.post , this.parent});
 
   @override
   _ManagePostScreenState createState() => _ManagePostScreenState();
@@ -79,22 +79,22 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 40.0), // Adjust the value as needed
           child: AlertDialog(
-            title: Text('Confirm Delete'),
-            content: Text('Are you sure you want to delete this post?'),
+            title: const Text('Confirm Delete'),
+            content: const Text('Are you sure you want to delete this post?'),
             backgroundColor: const Color.fromARGB(255, 12, 11, 11),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                   _delete(); // Delete the post
                 },
-                child: Text('Delete'),
+                child: const Text('Delete'),
               ),
             ],
           ),
@@ -113,7 +113,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
         actions: widget.post != null
             ? [
                 IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: _showDeleteConfirmationDialog,
                 ),
               ]
@@ -122,16 +122,16 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   _buildContentField(),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _buildImageUrlField(),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   _buildSubmitButton(context),
                 ],
               ),
@@ -147,7 +147,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
       controller: _contentController,
       decoration: InputDecoration(
         labelText: 'Content',
-        prefixIcon: Icon(Icons.text_fields, color: Colors.white),
+        prefixIcon: const Icon(Icons.text_fields, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -193,7 +193,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
       controller: _imageUrlController,
       decoration: InputDecoration(
         labelText: 'Avatar URL',
-        prefixIcon: Icon(Icons.image, color: Colors.white),
+        prefixIcon: const Icon(Icons.image, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -210,7 +210,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
           _submit();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.red,
               content: Text('L\'URL de l\'image n\'est pas valide.'),
             ),
@@ -220,14 +220,14 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
       child: Text(
         widget.post == null ? 'Create' : 'Update',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }

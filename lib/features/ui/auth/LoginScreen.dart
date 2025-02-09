@@ -7,7 +7,6 @@ import '../../blocs/auth/login/LoginState.dart';
 import '../../blocs/auth//Register/RegisterBloc.dart';
 import 'RegisterScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import '../widgets/NavbarWidget.dart';
 import '../profil/ProfilScreen.dart';
 import '../../blocs/profil/ProfilBloc.dart';
 import 'package:esgix/repositories/userRepository.dart';
@@ -19,6 +18,8 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final UserRepository userRepository = UserRepository(userApi: UserApi());
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +37,13 @@ class LoginScreen extends StatelessWidget {
                 SnackBar(
                   backgroundColor: Colors.black,
                   content: Container(
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     height: context.size!.height * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Login successful'),
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                     create: (context) => ProfilBloc(
                       userRepository: context.read<UserRepository>(),
                       authService: context.read<AuthService>(),
-                    )..add(LoadProfil()),
+                    )..add(const LoadProfil()),
                     child: ProfilScreen(),
                   ),
                 ),
@@ -73,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                 SnackBar(
                   backgroundColor: Colors.black,
                   content: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: context.size!.height * 0.2,
                     decoration: BoxDecoration(
                       color: Colors.red,
@@ -82,9 +83,9 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Login failed:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 8),
-                        Text(state.errorMessage, style: TextStyle(color: Colors.white)),
+                        const Text('Login failed:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 8),
+                        Text(state.errorMessage, style: const TextStyle(color: Colors.white)),
                       ],
                     ),
 
@@ -95,20 +96,20 @@ class LoginScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is LoginLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             return Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 40), // Ajustez cette valeur pour déplacer le texte plus haut
+                          margin: const EdgeInsets.only(bottom: 40), // Ajustez cette valeur pour déplacer le texte plus haut
                           child: AnimatedTextKit(
                             animatedTexts: [
                               TypewriterAnimatedText(
@@ -126,8 +127,8 @@ class LoginScreen extends StatelessWidget {
                             stopPauseOnTap: true,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
                           'Sign in to continue',
                           style: TextStyle(
                             fontSize: 18,
@@ -135,15 +136,15 @@ class LoginScreen extends StatelessWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         _buildEmailField(),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         _buildPasswordField(),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         _buildLoginButton(context),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildAlternativeLogin(context),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         //BlocProvider(
                         //  create: (context) => NavBloc(),
                         //  child: NavbarWidget(context), // Remplace par ton widget principal
@@ -166,7 +167,7 @@ class LoginScreen extends StatelessWidget {
       controller: emailController,
       decoration: InputDecoration(
         labelText: 'Email',
-        prefixIcon: Icon(Icons.email_outlined, color: Colors.white),
+        prefixIcon: const Icon(Icons.email_outlined, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -186,7 +187,7 @@ class LoginScreen extends StatelessWidget {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
-        prefixIcon: Icon(Icons.lock_outline, color: Colors.white),
+        prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -213,12 +214,12 @@ class LoginScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      child: Text(
+      child: const Text(
         'Login',
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
@@ -234,11 +235,11 @@ class LoginScreen extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => BlocProvider(
                 create: (context) => RegisterBloc(),
-                child: RegisterScreen(),
+                child: const RegisterScreen(),
               )),
             );
           },
-          child: Text(
+          child: const Text(
             'Sign up',
             style: TextStyle(color: Colors.grey),
           ),

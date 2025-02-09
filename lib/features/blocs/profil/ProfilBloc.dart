@@ -5,7 +5,6 @@ import '../../../core/model/user/user.dart';
 import 'ProfilEvent.dart';
 import 'ProfilState.dart';
 import '../../../services/AuthService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {

@@ -10,16 +10,12 @@ import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/blocs/auth/login/LoginBloc.dart';
-import 'features/blocs/auth/register/RegisterBloc.dart';
 import 'features/ui/auth/LoginScreen.dart';
 import 'features/ui/profil/ProfilScreen.dart';
-import 'features/ui/auth/RegisterScreen.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:provider/provider.dart';
 import 'features/ui/home/HomeScreen.dart';
 import 'repositories/postRepository.dart';
 import 'core/network/endpoints/posts/PostApi.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'features/ui/post/like/ListLikeScreen.dart';
 import 'features/ui/profil/UserProfilScreen.dart';
 import 'package:esgix/features/blocs/profil/ProfilBloc.dart';
@@ -51,12 +47,14 @@ void main() {
           )
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -95,7 +93,7 @@ class MyApp extends StatelessWidget {
             create: (context) => PostBloc(
               postRepository: context.read<PostRepository>(),
             )..add(LoadPosts(page: 0 )),
-            child: HomeScreen(),
+            child: const HomeScreen(),
           );
         }, 
          '/comment': (context) {
@@ -166,7 +164,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PostBloc(
             postRepository: context.read<PostRepository>(),
           ),
-          child: PostSearchScreen(),
+          child: const PostSearchScreen(),
         ),
         
        

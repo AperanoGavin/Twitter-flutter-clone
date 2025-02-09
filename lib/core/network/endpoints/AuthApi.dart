@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../ApiClient.dart';
-import '../../model/user/user.dart';
 import '../../model/auth/AuthenticatedUser.dart';
 import '../../model/auth/register/RegisterUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';

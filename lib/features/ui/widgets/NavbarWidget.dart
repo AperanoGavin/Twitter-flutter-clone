@@ -3,7 +3,7 @@ import'package:esgix/services/AuthService.dart';
 
 
 class NavbarWidget extends StatelessWidget {
-  const NavbarWidget({Key? key}) : super(key: key);
+  const NavbarWidget({super.key});
 
   int _getCurrentIndex(BuildContext context) {
     final String currentRoute = ModalRoute.of(context)?.settings.name ?? '';

@@ -5,6 +5,8 @@ import '../../blocs/auth/Register/RegisterBloc.dart';
 import '../../blocs/auth/Register/RegisterState.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -36,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
       ),
@@ -49,13 +51,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SnackBar(
                   backgroundColor: Colors.black,
                   content: Container(
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     height: context.size!.height * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('User registered successfully!'),
@@ -73,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SnackBar(
                   backgroundColor: Colors.black,
                   content: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: context.size!.height * 0.2,
                     decoration: BoxDecoration(
                       color: Colors.red,
@@ -82,9 +84,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Registration failed:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 8),
-                        Text(state.errorMessage, style: TextStyle(color: Colors.white)),
+                        const Text('Registration failed:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 8),
+                        Text(state.errorMessage, style: const TextStyle(color: Colors.white)),
                       ],
                     ),
 
@@ -95,24 +97,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           builder: (context, state) {
             if (state is RegisterLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     _buildUsernameField(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildEmailField(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildPasswordField(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildAvatarField(),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     avatarUrl != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(12), 
@@ -121,12 +123,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               height: 100,
                               width: 100,
                               errorBuilder: (context, error, stackTrace) {
-                                return Icon(Icons.image_not_supported, size: 100, color: Colors.white);
+                                return const Icon(Icons.image_not_supported, size: 100, color: Colors.white);
                               },
                             ),
                           )
-                        : Icon(Icons.person, size: 100, color: Colors.white),
-                    SizedBox(height: 20),
+                        : const Icon(Icons.person, size: 100, color: Colors.white),
+                    const SizedBox(height: 20),
                     _buildRegisterButton(context),
                   ],
                 ),
@@ -141,11 +143,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildUsernameField() {
     return TextFormField(
       controller: usernameController,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: 'Username',
-        labelStyle: TextStyle(color: Colors.grey),
-        prefixIcon: Icon(Icons.person_outline, color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: const Icon(Icons.person_outline, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -161,11 +163,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildEmailField() {
     return TextFormField(
       controller: emailController,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: 'Email',
-        labelStyle: TextStyle(color: Colors.grey),
-        prefixIcon: Icon(Icons.email_outlined, color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: const Icon(Icons.email_outlined, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -182,11 +184,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return TextFormField(
       controller: passwordController,
       obscureText: true,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: 'Password',
-        labelStyle: TextStyle(color: Colors.grey),
-        prefixIcon: Icon(Icons.lock_outline, color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -202,11 +204,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildAvatarField() {
     return TextFormField(
       controller: avatarController,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: 'Avatar URL',
-        labelStyle: TextStyle(color: Colors.grey),
-        prefixIcon: Icon(Icons.link, color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: const Icon(Icons.link, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -237,12 +239,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      child: Text(
+      child: const Text(
         'Register',
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),

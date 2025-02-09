@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/features/blocs/post/PostState.dart';
 import 'package:esgix/repositories/postRepository.dart';

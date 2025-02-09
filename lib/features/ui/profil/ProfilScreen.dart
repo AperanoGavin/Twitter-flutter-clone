@@ -18,6 +18,8 @@ class ProfilScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final ImageService _imageService = ImageService();
 
+  ProfilScreen({super.key});
+
  
 
   @override
@@ -42,7 +44,7 @@ class ProfilScreen extends StatelessWidget {
         create: (context) => ProfilBloc(
           userRepository: context.read<UserRepository>(),
           authService: context.read<AuthService>(),
-        )..add(LoadProfil()),
+        )..add(const LoadProfil()),
         child: BlocConsumer<ProfilBloc, ProfilState>(
           listener: (context, state) {
             if (state is ProfilError) {
@@ -56,7 +58,7 @@ class ProfilScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is ProfilLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is ProfilLoaded) {
@@ -65,17 +67,17 @@ class ProfilScreen extends StatelessWidget {
               avatarController.text = state.user.avatar ?? '';
 
               return SingleChildScrollView(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
                       _buildAvatarField(),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       _buildUsernameField(),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       _buildDescriptionField(),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       _buildUpdateButton(context),
                        /* BlocProvider(
                         create: (context) => NavBloc(),
@@ -87,11 +89,11 @@ class ProfilScreen extends StatelessWidget {
               );
             }
 
-            return Center(child: Text('Something went wrong!'));
+            return const Center(child: Text('Something went wrong!'));
           },
         ),
       ),
-      bottomNavigationBar: NavbarWidget(),
+      bottomNavigationBar: const NavbarWidget(),
     );
   }
 
@@ -100,7 +102,7 @@ class ProfilScreen extends StatelessWidget {
       controller: avatarController,
       decoration: InputDecoration(
         labelText: 'Avatar URL',
-        prefixIcon: Icon(Icons.image, color: Colors.white),
+        prefixIcon: const Icon(Icons.image, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -114,7 +116,7 @@ class ProfilScreen extends StatelessWidget {
       controller: usernameController,
       decoration: InputDecoration(
         labelText: 'Username',
-        prefixIcon: Icon(Icons.person, color: Colors.white),
+        prefixIcon: const Icon(Icons.person, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -130,7 +132,7 @@ class ProfilScreen extends StatelessWidget {
       maxLines: 3,
       decoration: InputDecoration(
         labelText: 'Description',
-        prefixIcon: Icon(Icons.description, color: Colors.white),
+        prefixIcon: const Icon(Icons.description, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -153,7 +155,7 @@ class ProfilScreen extends StatelessWidget {
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 backgroundColor: Colors.red,
                 content: Text('L\'URL de l\'avatar n\'est pas valide.'),
               ),
@@ -164,12 +166,12 @@ class ProfilScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      child: Text('Update Profile'),
+      child: const Text('Update Profile'),
     );
   }
 }
