@@ -57,7 +57,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
           postId: widget.post!.id,
           postCreate: PostCreate(
             content: _contentController.text,
-            imageUrl: _imageUrlController.text.isNotEmpty ? _imageUrlController.text : null,
+            imageUrl: _imageUrlController.text.isNotEmpty ? _imageUrlController.text : " ",
           ),
         ));
       }
@@ -192,7 +192,7 @@ class _ManagePostScreenState extends State<ManagePostScreen> {
     return TextFormField(
       controller: _imageUrlController,
       decoration: InputDecoration(
-        labelText: 'Avatar URL',
+        labelText: 'Image URL',
         prefixIcon: const Icon(Icons.image, color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
