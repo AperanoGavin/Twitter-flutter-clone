@@ -6,3 +6,7 @@ bool isValidUrl(String url) {
   }
   return false;
 }
+
+bool isOnlySpace(String value) {
+  return value.trim().isEmpty;
+}

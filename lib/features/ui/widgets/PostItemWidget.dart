@@ -1,4 +1,5 @@
 import 'package:esgix/services/AuthService.dart';
+import 'package:esgix/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
@@ -84,7 +85,7 @@ class PostItem extends StatelessWidget {
               ),
 
               // Contenu du post (texte et image)
-              if (post.imageUrl != null && post.imageUrl!.isNotEmpty)
+              if (post.imageUrl != null && post.imageUrl!.isNotEmpty && !isOnlySpace(post.imageUrl!))
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/post/id', arguments: post.id);
