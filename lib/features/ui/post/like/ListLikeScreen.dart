@@ -11,13 +11,13 @@ import 'package:esgix/repositories/postRepository.dart';
 class ListLikeScreen extends StatelessWidget {
   final String postId;
 
-  ListLikeScreen({required this.postId});
+  const ListLikeScreen({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Liste des likes'),
+        title: const Text('Liste des likes'),
       ),
       body: BlocProvider(
         create: (context) => PostBloc(
@@ -26,7 +26,7 @@ class ListLikeScreen extends StatelessWidget {
         child: BlocBuilder<PostBloc, PostState>(
           builder: (context, state) {
             if (state is PostLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is PostLikersLoaded) {
@@ -42,7 +42,7 @@ class ListLikeScreen extends StatelessWidget {
             }
 
             if (state is PostError) {
-              return Center(
+              return const Center(
                 child: Text('Erreur lors du chargement des likes'),
               );
             }

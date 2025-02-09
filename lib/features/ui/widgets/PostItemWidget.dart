@@ -1,7 +1,6 @@
 import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/core/model/post/post.dart';
@@ -11,9 +10,9 @@ class PostItem extends StatelessWidget {
 
 
   const PostItem({
-    Key? key,
+    super.key,
     required this.post,
-  }) : super(key: key);//super(key: key) permet de passer la clé key au constructeur de la classe parente (StatelessWidget) qui en a besoin pour identifier le widget dans le widget tree.
+  });//super(key: key) permet de passer la clé key au constructeur de la classe parente (StatelessWidget) qui en a besoin pour identifier le widget dans le widget tree.
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +29,13 @@ class PostItem extends StatelessWidget {
 
         return Card(
           color : const Color.fromARGB(255, 11, 11, 11),
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // En-tête du post (auteur et date)
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -48,30 +47,30 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                     
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           post.author.username,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16.0,
                           ),
                         ),
                         Text(
                           '${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 12.0,
                           ),
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     if (post.author.id == currentUserId) // Replace with actual user ID check
                       IconButton(
-                        icon: Icon(Icons.edit, color: Colors.white),
+                        icon: const Icon(Icons.edit, color: Colors.white),
                         onPressed: () {
                            Navigator.pushNamed(
                             context,
@@ -103,14 +102,14 @@ class PostItem extends StatelessWidget {
                 },
                 child: 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(post.content),
                   ),
               ),
 
               // Actions (like et commentaire)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   children: [
                     IconButton(
@@ -128,12 +127,12 @@ class PostItem extends StatelessWidget {
                       },
                       child: Text(
                         '${post.likesCount}',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     IconButton(
-                      icon: Icon(Icons.comment),
+                      icon: const Icon(Icons.comment),
                       onPressed: () {
                       //Navigator.pushNamed(context, '/post/id', arguments: post.id);
 

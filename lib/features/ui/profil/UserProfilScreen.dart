@@ -8,7 +8,6 @@ import '../../../features/blocs/profil/ProfilState.dart';
 import '../../../repositories/userRepository.dart';
 import '../../../services/AuthService.dart';
 import '../../../services/ImageService.dart';
-import 'package:esgix/utils/validators.dart';
 
 
 class UserProfilScreen extends StatelessWidget {
@@ -16,7 +15,7 @@ class UserProfilScreen extends StatelessWidget {
   late final String userAllPostsLike;
   final ImageService _imageService = ImageService();
 
-  UserProfilScreen({required this.userId}) {
+  UserProfilScreen({super.key, required this.userId}) {
     userAllPostsLike = userId;
   }
 
@@ -55,31 +54,31 @@ class UserProfilScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is ProfilLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is ProfilLoaded) {
               final user = state.user;
               return SingleChildScrollView(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       children: [
                         _buildAvatar(user.avatar),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         _buildUsername(user.username),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                       ],
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           _buildDescription(user.description),
-                          SizedBox(height: 100),
+                          const SizedBox(height: 100),
                           Row(
                             children: [
                               _buildNavigationButtons(context),
@@ -96,11 +95,11 @@ class UserProfilScreen extends StatelessWidget {
             }
 
 
-            return Center(child: Text('Something went wrong!'));
+            return const Center(child: Text('Something went wrong!'));
           },
         ),
       ),
-      bottomNavigationBar: NavbarWidget(),
+      bottomNavigationBar: const NavbarWidget(),
     );
   }
 
@@ -108,14 +107,14 @@ class UserProfilScreen extends StatelessWidget {
     return CircleAvatar(
       radius: 50,
       backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
-      child: avatarUrl == null ? Icon(Icons.person, size: 50) : null,
+      child: avatarUrl == null ? const Icon(Icons.person, size: 50) : null,
     );
   }
 
   Widget _buildUsername(String username) {
     return Text(
       username,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 12,
         fontWeight: FontWeight.bold,
@@ -129,7 +128,7 @@ class UserProfilScreen extends StatelessWidget {
     }
     return Container(
       height: 100, // Hauteur fixe pour le conteneur
-      padding: EdgeInsets.all(17.0),
+      padding: const EdgeInsets.all(17.0),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 23, 19, 19),
         borderRadius: BorderRadius.circular(28.0),
@@ -138,7 +137,7 @@ class UserProfilScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Text(
           description ?? '',
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
           ),
@@ -157,30 +156,30 @@ class UserProfilScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, '/userAllPostsLike', arguments: userAllPostsLike);
           },
-          child: Text('Liked Posts'),
           style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          padding: EdgeInsets.symmetric(vertical: 20 , horizontal: 58),
+          padding: const EdgeInsets.symmetric(vertical: 20 , horizontal: 58),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+          child: const Text('Liked Posts'),
         ),
-        SizedBox(height: 40),
+        const SizedBox(height: 40),
         ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, '/postsByUser', arguments: userId);
           },
-          child: Text('All Posts'),
           style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          padding: EdgeInsets.symmetric(vertical: 20 , horizontal: 69),
+          padding: const EdgeInsets.symmetric(vertical: 20 , horizontal: 69),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+          child: const Text('All Posts'),
         ),
       ],
     );

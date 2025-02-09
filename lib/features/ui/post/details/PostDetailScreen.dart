@@ -7,15 +7,13 @@ import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/features/blocs/post/PostState.dart';
 
-import 'package:esgix/core/model/post/post.dart';
-import 'package:esgix/utils/validators.dart';
 
 
 class PostDetailScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final String postId;
 
-  PostDetailScreen({required this.postId});
+  PostDetailScreen({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class PostDetailScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is PostDetailsLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (state is PostDetailsLoaded) {
@@ -56,7 +54,7 @@ class PostDetailScreen extends StatelessWidget {
               );
             
             }
-            return Center(child: Text('Something went wrong!'));
+            return const Center(child: Text('Something went wrong!'));
           },
         ),
       ),
@@ -69,12 +67,12 @@ class PostDetailScreen extends StatelessWidget {
             _refresh();
           } */
         },
-        child: const Icon(Icons.add),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
+        child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: NavbarWidget(),
+      bottomNavigationBar: const NavbarWidget(),
     );
   }
 }

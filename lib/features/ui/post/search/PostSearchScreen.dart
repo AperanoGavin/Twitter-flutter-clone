@@ -3,17 +3,14 @@ import 'dart:async';
 import 'package:esgix/features/blocs/post/PostState.dart';
 import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
 import 'package:esgix/features/ui/widgets/PostItemWidget.dart';
-import 'package:esgix/repositories/postRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
 import 'package:esgix/features/blocs/post/PostEvent.dart';
-import 'package:esgix/core/model/post/post.dart';
-import 'package:esgix/utils/validators.dart';
 
 
 class PostSearchScreen extends StatefulWidget {
-  const PostSearchScreen({Key? key}) : super(key: key);
+  const PostSearchScreen({super.key});
 
   @override
   _PostSearchScreenState createState() => _PostSearchScreenState();
@@ -49,7 +46,7 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
             hintText: 'Search...',
             filled: true,
             fillColor: Colors.black,
-            contentPadding: EdgeInsets.all(1),
+            contentPadding: const EdgeInsets.all(1),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -62,7 +59,7 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
        
           if (state is PostSearchLoading) {
 
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -70,7 +67,7 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
           if (state is PostSearchLoaded) {
             final posts = state.posts;
             if (posts.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text('No posts found'),
               );
             }
@@ -91,14 +88,14 @@ class _PostSearchScreenState extends State<PostSearchScreen> {
             );
           }
 
-          return Center(
+          return const Center(
             child: Text('No posts found'),
           );
                     
 
         },
       ),
-       bottomNavigationBar: NavbarWidget(),
+       bottomNavigationBar: const NavbarWidget(),
 
     );
 

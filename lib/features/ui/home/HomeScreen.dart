@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
   final String? parent;
   final String? userId;
   final String? userAllPostsLike;
-  const HomeScreen({Key? key , this.parent , this.userId , this.userAllPostsLike}) : super(key: key);
+  const HomeScreen({super.key , this.parent , this.userId , this.userAllPostsLike});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -133,13 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Something went wrong',
                           style: TextStyle(color: Colors.white),
                         ),
                         ElevatedButton(
                           onPressed: () => _pagingController.refresh(),
-                          child: Text('Try again'),
+                          child: const Text('Try again'),
                         ),
                       ],
                     ),
@@ -159,13 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   _refresh();
                 }
               },
-              child: const Icon(Icons.add),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
+              child: const Icon(Icons.add),
             )
           : null,
-      bottomNavigationBar: NavbarWidget(),
+      bottomNavigationBar: const NavbarWidget(),
     );
   }
 }

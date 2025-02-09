@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:http/src/response.dart';
+
 import '../../ApiClient.dart';
 import '../../../model/post/post.dart';
 
@@ -29,7 +31,7 @@ class PostApi {
   Future<List<Post>> get(int page , String? parent , String? userId , String? userAllPostsLike) async {
     try {
      
-      final response;
+      final Response response;
       if(userId!= null && userId.isNotEmpty){
         response = await _apiClient.get('user/$userId/posts');
       }else if(userAllPostsLike != null && userAllPostsLike.isNotEmpty){
