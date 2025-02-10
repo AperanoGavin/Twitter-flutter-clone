@@ -1,6 +1,9 @@
+import 'package:esgix/core/model/user/user.dart';
 import 'package:esgix/features/blocs/post/PostState.dart';
 import 'package:esgix/features/ui/widgets/PostItemWidget.dart';
 import 'package:esgix/repositories/postRepository.dart';
+import 'package:esgix/repositories/userRepository.dart';
+import 'package:esgix/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esgix/features/blocs/post/PostBloc.dart';
@@ -8,6 +11,7 @@ import 'package:esgix/features/blocs/post/PostEvent.dart';
 import 'package:esgix/features/ui/widgets/NavbarWidget.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:esgix/core/model/post/post.dart';
+
 
 class HomeScreen extends StatefulWidget {
   final String? parent;
@@ -65,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _pagingController.refresh();
   }
 
+
   @override
   void dispose() {
     _pagingController.dispose();
@@ -74,6 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userRepository = context.read<UserRepository>();  
+    
+    return FutureBuilder<User?>(
+      future: userRepository.getCurrentUser(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(); 
+        }
+
+      final _user = snapshot.data;
+
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocProvider.value(
@@ -87,6 +104,17 @@ class _HomeScreenState extends State<HomeScreen> {
             slivers: [
               // App Bar
               SliverAppBar(
+                 leading: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'profil/userId', arguments: _user?.id); // Remplacez `userId` par l'ID de l'utilisateur actuel
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(_user?.avatar ?? ""), // Remplacez `user.avatar` par l'URL de l'avatar de l'utilisateur
+                      ),
+                    ),
+                  ),
                 title: Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/X_logo_2023_%28white%29.png/480px-X_logo_2023_%28white%29.png',
                   height: 40,
@@ -166,6 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           : null,
       bottomNavigationBar: const NavbarWidget(),
+    );
+  }
     );
   }
 }
