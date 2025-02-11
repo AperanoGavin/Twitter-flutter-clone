@@ -53,7 +53,7 @@ class ApiClient {
 
   Map<String, String> _buildHeaders(String? token) {
     return {
-      'Authorization': token != null ? 'Bearer $token' : '',
+      'Authorization': token != null ? 'Bearer $token' : '',//
       'x-api-key': _apiKey,
       'access_key': _accessKey,
       'Content-Type': 'application/json',
